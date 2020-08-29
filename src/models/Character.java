@@ -6,7 +6,7 @@ import java.util.Map;
 
 import static models.Property.*;
 
-public class Character {
+public class Character implements  Comparable<Character>{
     private Class characterClass;
     private double height;
     private List<Equipment> equipment;
@@ -61,5 +61,25 @@ public class Character {
     private double calculateDefensePerformance() {
         double DEM = (1.9 + (2.5*height - 4.16)*4 - (2.5*height - 4.16)*2 - 3*height/10);
         return (properties.get(RESISTANCE) + properties.get(EXPERTISE))*properties.get(LIFE)*DEM;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        }
+
+        if(!(o instanceof Character)) {
+            return false;
+        }
+
+        Character c = (Character) o;
+        return c.attackPerformance == this.attackPerformance && c.defensePerformance == this.defensePerformance;
+    }
+
+    // TODO: Ver bajo que criterio un character es mejor que otro.
+    @Override
+    public int compareTo(Character o) {
+        return (int)((this.attackPerformance + this.defensePerformance) - (o.attackPerformance + o.defensePerformance));
     }
 }

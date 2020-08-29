@@ -1,6 +1,9 @@
 import models.*;
+import models.Class;
 
 import java.util.Arrays;
+
+import static models.Class.*;
 
 public class Test {
     public static void main(String[] args) {
@@ -10,10 +13,7 @@ public class Test {
         Equipment eq4 = new Weapon(2,4,6,7,34);
         Equipment eq5 = new Shirtfront(2,4,6,7,34);
 
-
-
-        models.Class characterClass = new Warrior(50, 30);
-        models.Character character = new models.Character(characterClass, 1.9, Arrays.asList(eq1, eq2, eq3, eq4, eq5));
+        models.Character character = new models.Character(WARRIOR, 1.9, Arrays.asList(eq1, eq2, eq3, eq4, eq5));
 
         System.out.println(character.getCharacterClass());
         System.out.println(character.getEquipment());

@@ -5,8 +5,9 @@ import java.util.Map;
 
 import static models.Property.*;
 
-public class EquipmentImpl implements Equipment {
+public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     private Map<Property, Double> properties;
+    private double fitness;
 
     EquipmentImpl(double strength, double agility, double expertise, double resistance, double life) {
         Map<Property, Double> properties = new HashMap<>();
@@ -16,6 +17,15 @@ public class EquipmentImpl implements Equipment {
         properties.put(RESISTANCE, resistance);
         properties.put(LIFE, life);
         this.properties = properties;
+        this.fitness = calculateFitness();
+    }
+
+    private double calculateFitness() {
+        double result = 0;
+        for(Property p : properties.keySet()) {
+            result += properties.get(p);
+        }
+        return result/properties.size();
     }
 
     @Override
@@ -33,5 +43,29 @@ public class EquipmentImpl implements Equipment {
         }
         sb.append('\n');
         return sb.toString();
+    }
+
+    @Override
+    public double getFitness() {
+        return fitness;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == this) {
+            return true;
+        }
+
+        if(!(o instanceof Equipment)) {
+            return false;
+        }
+
+        Equipment e = (Equipment) o;
+        return e.getFitness() == this.fitness;
+    }
+
+    @Override
+    public int compareTo(Equipment o) {
+        return (int)(this.fitness - o.getFitness());
     }
 }
