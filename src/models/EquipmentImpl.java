@@ -46,6 +46,7 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClass()).append('\n');
+        sb.append("Fitness==> ").append(fitness).append('\n');
         for(Property p : Property.values()) {
             sb.append(p.toString()).append(": ");
             sb.append(properties.get(p)).append('\n');

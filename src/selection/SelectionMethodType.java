@@ -2,12 +2,12 @@ package selection;
 
 public enum SelectionMethodType {
     ELITE(new Elite()),
-    ROULLETE(null),
-    UNIVERSAL(null),
+    ROULLETE(new Roullete()),
+    UNIVERSAL(new Universal()),
     BOLTZMANN(null),
     TOURNAMENTDET(null),
     TOURNAMENTPROB(null),
-    RANKING(null);
+    RANKING(new Ranking());
 
     private SelectionMethod selectionMethod;
     SelectionMethodType(SelectionMethod selectionMethod) {

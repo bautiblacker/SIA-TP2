@@ -16,4 +16,13 @@ public enum Property {
         return multiplier;
     }
 
+    public Property getProperty(String property) {
+        for(Property p : Property.values()) {
+            if(property.toUpperCase().equals(p.name().toUpperCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 }
