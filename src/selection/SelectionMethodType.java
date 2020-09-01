@@ -2,7 +2,7 @@ package selection;
 
 public enum SelectionMethodType {
     ELITE(new Elite()),
-    ROULLETE(new Roullete()),
+    ROULETTE(new Roulette()),
     UNIVERSAL(new Universal()),
     BOLTZMANN(null),
     TOURNAMENTDET(null),

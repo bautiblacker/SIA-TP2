@@ -2,11 +2,11 @@ package selection;
 
 import models.Equipment;
 
-class RoulleteNode {
+class RouletteNode {
     Equipment equipment;
     double fitness;
 
-    RoulleteNode(Equipment equipment, double fitness) {
+    RouletteNode(Equipment equipment, double fitness) {
         this.equipment = equipment;
         this.fitness = fitness;
     }
@@ -15,7 +15,7 @@ class RoulleteNode {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(equipment.getClass().toString()).append('\n');
-        sb.append("ACUMULATIVE FITNESS: ").append(fitness).append('\n');
+        sb.append("CUMULATIVE FITNESS: ").append(fitness).append('\n');
 
         return sb.toString();
     }
