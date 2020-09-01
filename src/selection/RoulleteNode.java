@@ -19,9 +19,4 @@ class RoulleteNode {
 
         return sb.toString();
     }
-
-//    @Override
-//    public int compareTo(RoulleteNode o) {
-//        return (int)(this.fitness - o.fitness);
-//    }
 }

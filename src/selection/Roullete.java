@@ -49,59 +49,40 @@ public class Roullete implements SelectionMethod {
 
     Equipment findEquipment(List<RoulleteNode> equipments, double r) {
         int start = 0, end = equipments.size() - 1, middle = 0;
-        RoulleteNode ans, prevNode, currentNode, nextNode;
+        RoulleteNode prevNode, currentNode, nextNode;
 
         // edge cases
         if(equipments.get(0).fitness >= r) {
-            ans =  equipments.get(start);
-            equipments.remove(ans);
-            System.out.println(ans);
-            return ans.equipment;
+            return equipments.get(start).equipment;
         } else if(equipments.get(end).fitness <= r) {
-            ans =  equipments.get(end);
-            equipments.remove(ans);
-            System.out.println(ans);
-            return ans.equipment;
+            return equipments.get(end).equipment;
         }
 
         while(start <= end) {
             middle = (start + end) / 2;
             currentNode = equipments.get(middle);
             if (currentNode.fitness == r) {
-                ans = currentNode;
-                equipments.remove(ans);
-                System.out.println(ans);
-                return ans.equipment;
+                return currentNode.equipment;
             }
 
             if (currentNode.fitness > r) {
                 prevNode = equipments.get(middle - 1);
                 if (middle > 0 && r > prevNode.fitness) {
-                    ans =  getBiggest(prevNode, currentNode);
-                    equipments.remove(ans);
-                    System.out.println(ans);
-                    return ans.equipment;
+                    return getBiggest(prevNode, currentNode);
                 }
                 end = middle;
             } else {
                 nextNode = equipments.get(middle + 1);
                 if (middle < end-1 && r < nextNode.fitness) {
-                    ans = getBiggest(currentNode, nextNode);
-                    equipments.remove(ans);
-                    System.out.println(ans);
-                    return ans.equipment;
+                    return getBiggest(currentNode, nextNode);
                 }
                 start = middle + 1;
             }
         }
-
-        ans =  equipments.get(middle);
-        equipments.remove(ans);
-        System.out.println(ans);
-        return ans.equipment;
+        return equipments.get(middle).equipment;
     }
 
-    private RoulleteNode getBiggest(RoulleteNode eq1, RoulleteNode eq2) {
-        return (eq1.fitness > eq2.fitness) ? eq1 : eq2;
+    private Equipment getBiggest(RoulleteNode eq1, RoulleteNode eq2) {
+        return (eq1.fitness > eq2.fitness) ? eq1.equipment : eq2.equipment;
     }
 }
