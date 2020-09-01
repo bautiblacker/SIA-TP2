@@ -1,14 +1,18 @@
 package models;
 
 public enum Property {
-    STRENGTH(100),
-    AGILITY(1),
-    EXPERTISE(0.6),
-    RESISTANCE(1),
-    LIFE(100);
+    ID("id",100),
+    STRENGTH("Fu",100),
+    AGILITY("Ag",1),
+    EXPERTISE("Ex",0.6),
+    RESISTANCE("Re",1),
+    LIFE("Vi ",100);
 
+    private String id;
     private double multiplier;
-    Property(double multiplier) {
+
+    Property(String id, double multiplier) {
+        this.id = id;
         this.multiplier = multiplier;
     }
 
@@ -16,13 +20,12 @@ public enum Property {
         return multiplier;
     }
 
-    public Property getProperty(String property) {
+    public static Property getProperty(String property) {
         for(Property p : Property.values()) {
-            if(property.toUpperCase().equals(p.name().toUpperCase())) {
+            if(p.id.equals(property)) {
                 return p;
             }
         }
         return null;
     }
-
 }

@@ -1,6 +1,5 @@
 package models;
 
-
 public enum EquipmentType {
     BOOT,
     GLOVES,
@@ -8,8 +7,8 @@ public enum EquipmentType {
     SHIRTFRONT,
     WEAPON;
 
-    public boolean contains(String type) {
-        for(EquipmentType et : EquipmentType.values()) {
+    public boolean contains(String type){
+        for(EquipmentType et : EquipmentType.values()){
             if(et.name().equals(type.toUpperCase())) {
                 return true;
             }

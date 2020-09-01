@@ -23,6 +23,10 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         this.properties = properties;
         this.fitness = calculateFitness();
     }
+    public EquipmentImpl(Map<Property, Double> properties) {
+        this.properties = properties;
+        this.fitness = calculateFitness();
+    }
 
     public EquipmentImpl(Map<Property, Double> properties) {
         this.properties = properties;
