@@ -2,9 +2,9 @@ package mutation;
 
 public enum MutationMethodType {
     GEN(new Gen()),
-    LIMITEDMULTIGEN(null),
-    UNIFORMMULTIGEN(null),
-    COMPLETE(null);
+    LIMITEDMULTIGEN(new LimitedMultigen()),
+    UNIFORMMULTIGEN(new UniformMultigen()),
+    COMPLETE(new Complete());
 
     private Mutation mutationMethod;
     MutationMethodType(Mutation mutationMethod) {
