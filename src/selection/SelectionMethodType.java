@@ -1,6 +1,7 @@
 package selection;
 
 public enum SelectionMethodType {
+<<<<<<< HEAD
     ELITE,
     ROULLETE,
     UNIVERSAL,
@@ -8,6 +9,15 @@ public enum SelectionMethodType {
     TOURNAMENTDET,
     TOURNAMENTPROB,
     RANKING;
+=======
+    ELITE(new Elite()),
+    ROULETTE(new Roulette()),
+    UNIVERSAL(new Universal()),
+    BOLTZMANN(null),
+    TOURNAMENTDET(null),
+    TOURNAMENTPROB(null),
+    RANKING(new Ranking());
+>>>>>>> start select
 
     public static boolean contains(String method) {
         for(SelectionMethodType sm : values()) {

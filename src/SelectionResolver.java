@@ -6,6 +6,7 @@ import parsers.EquipmentParser;
 
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
