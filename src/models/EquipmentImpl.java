@@ -9,6 +9,10 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     private Map<Property, Double> properties;
     private double fitness;
 
+    EquipmentImpl() {
+
+    }
+
     EquipmentImpl(double strength, double agility, double expertise, double resistance, double life) {
         Map<Property, Double> properties = new HashMap<>();
         properties.put(STRENGTH, strength);
@@ -33,7 +37,7 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         return result/properties.size();
     }
 
-    public void setProperty(Property property, double value) {
+    public void mutate(Property property, double value) {
         this.properties.put(property, value);
     }
 

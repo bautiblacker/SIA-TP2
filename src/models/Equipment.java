@@ -5,5 +5,5 @@ import java.util.Map;
 public interface Equipment {
     Map<Property, Double> getProperties();
     double getFitness();
-    void setProperty(Property property, double value);
+    void mutate(Property property, double value);
 }
