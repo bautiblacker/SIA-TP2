@@ -19,14 +19,14 @@ public class Test {
 //        Equipment eq8 = new Gloves(5,2,5,7,7);
 
         List<Equipment> l = Arrays.asList(eq1, eq2, eq3, eq4, eq5);
-        for(Equipment e : l){
-            System.out.println(e.getFitness());
-        }
+//        for(Equipment e : l){
+//            System.out.println(e.getFitness());
+//        }
 
         TournamentDet roullete = new TournamentDet();
         Map<String, Integer> paramos = new HashMap<>();
-        paramos.put("selectionLimit",5);
-        paramos.put("sampleSize",5);
+        paramos.put("selectionLimit",4);
+        paramos.put("sampleSize",2);
         List<Equipment> ans = roullete.select(l,paramos );
         System.out.println("ANS --->");
         System.out.println(ans);
