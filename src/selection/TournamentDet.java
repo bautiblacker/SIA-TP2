@@ -6,14 +6,14 @@ import java.util.*;
 
 public class TournamentDet implements SelectionMethod {
     @Override
-    public List<Equipment> select(List<Equipment> equipment, Map<String, Integer> selectParams) {
-        int selectionLimit = selectParams.get("selectionLimit");
+    public List<Equipment> select(List<Equipment> equipment, Map<String, Double> selectParams) {
+        int selectionLimit = selectParams.get("selectionLimit").intValue();
         if(equipment.size() <= selectionLimit)
             return equipment;
 
         List<Equipment> equipmentSelected = new ArrayList<>();
         List<Integer> indexesUsed = new ArrayList<>();
-        int sampleSize = selectParams.get("sampleSize");
+        int sampleSize = selectParams.get("sampleSize").intValue();
 
         do {
             List<Integer> indexes = getIndexes(equipment.size(), sampleSize, indexesUsed);
