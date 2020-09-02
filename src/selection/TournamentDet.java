@@ -17,20 +17,21 @@ public class TournamentDet implements SelectionMethod {
 
         do {
             List<Integer> indexes = getIndexes(equipment.size(), sampleSize, indexesUsed);
-            List<Equipment> samples = getSamples(indexes, equipment);
-            Equipment bestEquipment = getBestEquipment(samples);
-            equipmentSelected.add(bestEquipment);
-            indexesUsed.add(equipment.indexOf(bestEquipment));
+            Map<Integer,Equipment> samples = getSamples(indexes, equipment);
+            int bestEquipment = getBestEquipment(samples);
+            equipmentSelected.add(samples.get(bestEquipment));
+            indexesUsed.add(bestEquipment);
 
-        } while((equipmentSelected.size() < selectionLimit) && ( (equipment.size() - indexesUsed.size() >= sampleSize)) );
+        } while((equipmentSelected.size() < selectionLimit) && (equipment.size() - indexesUsed.size() >= sampleSize));
 
         return equipmentSelected;
     }
 
-    private static List<Equipment> getSamples(List<Integer> indexes, List<Equipment> equipment) {
-        List<Equipment> samples = new LinkedList<>();
+    private static Map<Integer,Equipment> getSamples(List<Integer> indexes, List<Equipment> equipment) {
+        Map<Integer,Equipment> samples = new HashMap<>();
         for(Integer index : indexes){
-            samples.add(equipment.get(index));
+            System.out.println(index);
+            samples.put(index, equipment.get(index));
         }
         return samples;
     }
@@ -40,20 +41,27 @@ public class TournamentDet implements SelectionMethod {
         Random random = new Random();
         while(indexes.size() < sampleSize) {
             int index = random.nextInt(bound);
-            if(!indexesUsed.contains(index)) {
+            if(!(indexesUsed.contains(index) || indexes.contains(index))) {
                 indexes.add(index);
             }
         }
         return indexes;
     }
 
-    private static Equipment getBestEquipment(List<Equipment> equipments) {
-        Equipment bestEquipment = equipments.get(0);
-        for (Equipment equipment : equipments) {
-            if(equipment.getFitness() > bestEquipment.getFitness()) {
-                bestEquipment = equipment;
+    private static int getBestEquipment(Map<Integer, Equipment> equipments) {
+        Equipment bestEquipment = null;
+        int  bestEquipmentIdx = -1;
+        for (Integer equipmentIdx : equipments.keySet()) {
+            if(bestEquipmentIdx !=  -1) {
+                if(equipments.get(equipmentIdx).getFitness() > bestEquipment.getFitness()) {
+                    bestEquipmentIdx = equipmentIdx;
+                    bestEquipment = equipments.get(equipmentIdx);
+                }
+            } else {
+                bestEquipmentIdx = equipmentIdx;
+                bestEquipment = equipments.get(equipmentIdx);
             }
         }
-        return bestEquipment;
+        return bestEquipmentIdx;
     }
 }
