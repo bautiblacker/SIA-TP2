@@ -5,8 +5,8 @@ import java.util.*;
 
 public class Elite implements SelectionMethod {
 
-    @Override
-    public List<Equipment> select(List<Equipment> equipment, int selectionLimit) {
+    public List<Equipment> select(List<Equipment> equipment, Map<String,Integer> selectParams) {
+        int selectionLimit = selectParams.get("selectionLimit");
         equipment.sort((o1, o2) -> (int) (o2.getFitness() - o1.getFitness())); // de mayor a menor
         List<Equipment> selectedItems = new ArrayList<>();
         int n = equipment.size();

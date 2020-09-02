@@ -2,31 +2,58 @@ package selection;
 
 import models.Equipment;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TournamentDet implements SelectionMethod {
     @Override
-    public List<Equipment> select(List<Equipment> equipment, int selectionLimit) {
+    public List<Equipment> select(List<Equipment> equipment, Map<String, Integer> selectParams) {
+        int selectionLimit = selectParams.get("selectionLimit");
         if(equipment.size() <= selectionLimit)
             return equipment;
 
         List<Equipment> equipmentSelected = new ArrayList<>();
-        Random random = new Random();
+        List<Integer> indexesUsed = new ArrayList<>();
+        int sampleSize = selectParams.get("sampleSize");
 
         do {
-            int bound = ((equipment.size() / 2) - 1) - equipmentSelected.size();
-            int sampleQty = ((equipment.size() / 2) - 1) + random.nextInt(bound);
+            List<Integer> indexes = getIndexes(equipment.size(), sampleSize, indexesUsed);
+            List<Equipment> samples = getSamples(indexes, equipment);
+            Equipment bestEquipment = getBestEquipment(samples);
+            equipmentSelected.add(bestEquipment);
+            indexesUsed.add(equipment.indexOf(bestEquipment));
 
-            List<Equipment> sample = equipment.subList(fromIndex, toIndex);
-            fromIndex += selectionLimit;
-            toIndex += selectionLimit;
+        } while((equipmentSelected.size() < selectionLimit) && ( (equipment.size() - indexesUsed.size() >= sampleSize)) );
 
-        } while(toIndex <= equipment.size());
+        return equipmentSelected;
+    }
 
+    private static List<Equipment> getSamples(List<Integer> indexes, List<Equipment> equipment) {
+        List<Equipment> samples = new LinkedList<>();
+        for(Integer index : indexes){
+            samples.add(equipment.get(index));
+        }
+        return samples;
+    }
 
-        return null;
+    private static List<Integer> getIndexes(int bound, int sampleSize, List<Integer> indexesUsed) {
+        List<Integer> indexes = new LinkedList<>();
+        Random random = new Random();
+        while(indexes.size() < sampleSize) {
+            int index = random.nextInt(bound);
+            if(!indexesUsed.contains(index)) {
+                indexes.add(index);
+            }
+        }
+        return indexes;
+    }
+
+    private static Equipment getBestEquipment(List<Equipment> equipments) {
+        Equipment bestEquipment = equipments.get(0);
+        for (Equipment equipment : equipments) {
+            if(equipment.getFitness() > bestEquipment.getFitness()) {
+                bestEquipment = equipment;
+            }
+        }
+        return bestEquipment;
     }
 }

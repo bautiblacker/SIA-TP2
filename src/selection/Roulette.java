@@ -4,12 +4,13 @@ import models.Equipment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Roulette implements SelectionMethod {
 
-    @Override
-    public List<Equipment> select(List<Equipment> equipment, int selectionLimit) {
+    public List<Equipment> select(List<Equipment> equipment, Map<String, Integer> selectParams) {
+        int selectionLimit = selectParams.get("selectionLimit");
         List<RouletteNode> rouletteNodes = getRouletteList(equipment);
         List<Equipment> selectedItems = new ArrayList<>();
         Random random = new Random();
