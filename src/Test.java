@@ -1,6 +1,7 @@
 import models.*;
 import selection.Ranking;
 import selection.TournamentDet;
+import selection.TournamentProb;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,10 +24,10 @@ public class Test {
 //            System.out.println(e.getFitness());
 //        }
 
-        TournamentDet roullete = new TournamentDet();
-        Map<String, Integer> paramos = new HashMap<>();
-        paramos.put("selectionLimit",4);
-        paramos.put("sampleSize",2);
+        TournamentProb roullete = new TournamentProb();
+        Map<String, Double> paramos = new HashMap<>();
+        paramos.put("selectionLimit",2.0);
+        paramos.put("threshold",0.75);
         List<Equipment> ans = roullete.select(l,paramos );
         System.out.println("ANS --->");
         System.out.println(ans);

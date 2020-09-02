@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class Roulette implements SelectionMethod {
 
-    public List<Equipment> select(List<Equipment> equipment, Map<String, Integer> selectParams) {
-        int selectionLimit = selectParams.get("selectionLimit");
+    public List<Equipment> select(List<Equipment> equipment, Map<String, Double> selectParams) {
+        int selectionLimit = selectParams.get("selectionLimit").intValue();
         List<RouletteNode> rouletteNodes = getRouletteList(equipment);
         List<Equipment> selectedItems = new ArrayList<>();
         Random random = new Random();
