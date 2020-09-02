@@ -1,8 +1,11 @@
 import models.*;
 import selection.Ranking;
+import selection.TournamentDet;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
@@ -11,11 +14,20 @@ public class Test {
         Equipment eq3 = new Gloves(9,1,23,17,24);
         Equipment eq4 = new Gloves(4,4,1,10,14);
         Equipment eq5 = new Gloves(8,4,12,9,64);
+//        Equipment eq6 = new Gloves(8,2,4,2,45);
+//        Equipment eq7 = new Gloves(9,5,21,4,23);
+//        Equipment eq8 = new Gloves(5,2,5,7,7);
 
         List<Equipment> l = Arrays.asList(eq1, eq2, eq3, eq4, eq5);
+        for(Equipment e : l){
+            System.out.println(e.getFitness());
+        }
 
-        Ranking roullete = new Ranking();
-        List<Equipment> ans = roullete.select(l, 3);
+        TournamentDet roullete = new TournamentDet();
+        Map<String, Integer> paramos = new HashMap<>();
+        paramos.put("selectionLimit",5);
+        paramos.put("sampleSize",5);
+        List<Equipment> ans = roullete.select(l,paramos );
         System.out.println("ANS --->");
         System.out.println(ans);
 
