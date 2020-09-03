@@ -1,17 +1,23 @@
 import models.Equipment;
 import models.EquipmentType;
-import models.Property;
+import org.json.simple.parser.JSONParser;
+import parsers.ConfigParser;
+import parsers.EquipmentParser;
 
 import java.io.FileReader;
 import java.io.Reader;
 import java.util.List;
+import java.util.Map;
 
 public class SelectionResolver {
     public static void main(String[] args) {
+        JSONParser parser = new JSONParser();
         String filePath = args[0];
+        String configPath = args[1];
         try {
             Reader reader = new FileReader(filePath);
             EquipmentType equipmentType = equipmentTypeByFileName(filePath);
+            Map<String, Object> configParams = ConfigParser.parse(configPath);
             List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType);
 
         } catch (Exception e){

@@ -1,7 +1,6 @@
 package selection;
 
 import models.Equipment;
-
 import java.util.*;
 
 public class Elite implements SelectionMethod {

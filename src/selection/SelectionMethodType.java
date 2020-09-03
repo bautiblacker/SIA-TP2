@@ -1,30 +1,42 @@
 package selection;
 
 public enum SelectionMethodType {
-    ELITE(new Elite()),
-    ROULLETE(new Roullete()),
-    UNIVERSAL(new Universal()),
-    BOLTZMANN(null),
-    TOURNAMENTDET(null),
-    TOURNAMENTPROB(null),
-    RANKING(new Ranking());
+    ELITE,
+    ROULLETE,
+    UNIVERSAL,
+    BOLTZMANN,
+    TOURNAMENTDET,
+    TOURNAMENTPROB,
+    RANKING;
 
-    private SelectionMethod selectionMethod;
-    SelectionMethodType(SelectionMethod selectionMethod) {
-        this.selectionMethod = selectionMethod;
-    }
-
-    public SelectionMethod getMethod() {
-        return selectionMethod;
-    }
-
-    public boolean contains(String method) {
+    public static boolean contains(String method) {
         for(SelectionMethodType sm : values()) {
             if(sm.name().equals(method.toUpperCase())) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static SelectionMethod getMethodInstance(SelectionMethodType type) {
+        switch (type) {
+            case ELITE:
+                return new Elite();
+            case RANKING:
+                return new Ranking();
+            case ROULLETE:
+                return new Roullete();
+            case UNIVERSAL:
+                return new Universal();
+            case TOURNAMENTPROB:
+                return null;
+            case TOURNAMENTDET:
+                return null;
+            case BOLTZMANN:
+                return null;
+        }
+
+        return null;
     }
 
 }

@@ -28,11 +28,6 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         this.fitness = calculateFitness();
     }
 
-    public EquipmentImpl(Map<Property, Double> properties) {
-        this.properties = properties;
-        this.fitness = calculateFitness();
-    }
-
     private double calculateFitness() {
         double result = 0;
         for(Property p : properties.keySet()) {

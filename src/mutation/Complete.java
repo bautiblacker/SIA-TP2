@@ -8,11 +8,15 @@ import java.util.Random;
 
 public class Complete implements Mutation {
 
+    private double criteria;
+
+    public Complete(double criteria) {
+        this.criteria = criteria;
+    }
+
     @Override
     public Equipment perform(Equipment eq, Map<String, Object> params) {
         int delta = (Integer) params.get("delta");
-        double criteria = (Double) params.get("criteria");
-
         Random random = new Random();
         Object classEq;
         Equipment newEq = null;

@@ -8,6 +8,12 @@ import java.util.Random;
 
 public class UniformMultigen implements Mutation {
 
+    private double criteria;
+
+    public UniformMultigen(double criteria) {
+        this.criteria = criteria;
+    }
+
     @Override
     public Equipment perform(Equipment eq, Map<String, Object> params) {
         Random random = new Random();
@@ -18,7 +24,6 @@ public class UniformMultigen implements Mutation {
         try {
             classEq = eq.getClass().newInstance();
             newEq = (Equipment) classEq;
-            double criteria = (Double) params.get("criteria");
             for(Property p : Property.values()) {
                 prob = random.nextDouble();
                 if(prob < criteria) {

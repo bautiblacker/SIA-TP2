@@ -1,21 +1,26 @@
 package mutation;
 
 public enum MutationMethodType {
-    GEN(new Gen()),
-    LIMITEDMULTIGEN(new LimitedMultigen()),
-    UNIFORMMULTIGEN(new UniformMultigen()),
-    COMPLETE(new Complete());
+    GEN,
+    LIMITEDMULTIGEN,
+    UNIFORMMULTIGEN,
+    COMPLETE;
 
-    private Mutation mutationMethod;
-    MutationMethodType(Mutation mutationMethod) {
-        this.mutationMethod = mutationMethod;
+    public static Mutation getMethodInstance(MutationMethodType type, double prob) {
+        switch (type) {
+            case GEN:
+                return new Gen(prob);
+            case COMPLETE:
+                return new Complete(prob);
+            case LIMITEDMULTIGEN:
+                return new LimitedMultigen(prob);
+            case UNIFORMMULTIGEN:
+                return new UniformMultigen(prob);
+        }
+        return null;
     }
 
-    public Mutation getMethod() {
-        return mutationMethod;
-    }
-
-    public boolean contains(String method) {
+    public static boolean contains(String method) {
         for(MutationMethodType sm : values()) {
             if(sm.name().equals(method.toUpperCase())) {
                 return true;
