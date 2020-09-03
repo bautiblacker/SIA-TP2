@@ -1,0 +1,21 @@
+{
+  "selection_methods":[
+    {
+      "method": "elite",
+      "method_prob": 0.3
+    },{
+      "method": "ranking",
+      "method_prob": 0.3
+    },{
+      "method": "universal",
+      "method_prob": 0.4
+    }
+  ],
+  "crossover": "singlepoint",
+  "mutation": "complete",
+  "mutation_prob": 0.5,
+  "implementation": "fillall",
+  "population": 20,
+  "select": 10,
+  "tournament_m": 5
+}
