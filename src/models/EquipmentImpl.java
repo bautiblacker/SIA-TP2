@@ -2,16 +2,13 @@ package models;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import static models.Property.*;
 
 public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     private Map<Property, Double> properties;
     private double fitness;
-
-    EquipmentImpl() {
-
-    }
 
     EquipmentImpl(double strength, double agility, double expertise, double resistance, double life) {
         Map<Property, Double> properties = new HashMap<>();
@@ -36,8 +33,19 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         return result/properties.size();
     }
 
-    public void mutate(Property property, double value) {
+    public void setProperty(Property property, double value) {
         this.properties.put(property, value);
+    }
+
+    @Override
+    public Equipment copy() {
+        return new EquipmentImpl(this.properties);
+    }
+
+    @Override
+    public void mutate(Property p) {
+        Random random = new Random();
+        setProperty(p, properties.get(p) + random.nextInt(10));
     }
 
     @Override

@@ -11,4 +11,8 @@ public class Gloves extends EquipmentImpl {
     public Gloves(Map<Property, Double> properties){
         super(properties);
     }
+
+    public Gloves copy() {
+        return new Gloves(this.getProperties());
+    }
 }

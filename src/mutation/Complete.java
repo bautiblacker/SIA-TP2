@@ -3,7 +3,6 @@ package mutation;
 import models.Equipment;
 import models.Property;
 
-import java.util.Map;
 import java.util.Random;
 
 public class Complete implements Mutation {
@@ -15,22 +14,13 @@ public class Complete implements Mutation {
     }
 
     @Override
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
-        int delta = (Integer) params.get("delta");
+    public Equipment perform(Equipment eq) {
         Random random = new Random();
-        Object classEq;
-        Equipment newEq = null;
-        try {
-            classEq = eq.getClass().newInstance();
-            newEq = (Equipment) classEq;
-            if(random.nextDouble() < criteria) {
-                for(Property p : Property.values()) {
-                    newEq.mutate(p, eq.getProperties().get(p) + delta);
-                }
+        Equipment newEq = eq.copy();
+        if(random.nextDouble() < criteria) {
+            for(Property p : Property.values()) {
+                newEq.mutate(p);
             }
-
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
         return newEq == null ? eq : newEq;
     }

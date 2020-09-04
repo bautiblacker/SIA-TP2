@@ -1,5 +1,6 @@
 package crossover;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.EquipmentImpl;
 import models.Property;
@@ -11,27 +12,22 @@ import java.util.Random;
 public class SinglePointCrossover implements CrossOver {
 
     @Override
-    public Equipment[] perform(Equipment e1, Equipment e2) {
+    public Equipment[] perform(Equipment e1, Equipment e2, ConfigParams configParams) {
         Random random = new Random();
-        int point = random.nextInt(6);
-        Map<Property, Double> childrenOneProperties = new HashMap<>();
-        Map<Property, Double> childrenTwoProperties = new HashMap<>();
+        int point = random.nextInt(Property.values().length);
+
+        Equipment newE1 = e1.copy(), newE2 = e1.copy();
 
         for(int i = 0; i < Property.values().length; i++) {
             Property property = Property.values()[i];
             double valueE1 = e1.getProperties().get(property);
             double valueE2 = e2.getProperties().get(property);
             if(i >= point) {
-                childrenOneProperties.put(property, valueE2);
-                childrenTwoProperties.put(property, valueE1);
-            } else {
-                childrenOneProperties.put(property, valueE1);
-                childrenTwoProperties.put(property, valueE2);
+                newE1.setProperty(property, valueE2);
+                newE2.setProperty(property, valueE1);
             }
         }
 
-        Equipment childrenOne = new EquipmentImpl(childrenOneProperties);
-        Equipment childrenTwo = new EquipmentImpl(childrenTwoProperties);
-        return new Equipment[]{childrenOne, childrenTwo};
+        return new Equipment[]{newE1, newE2};
     }
 }

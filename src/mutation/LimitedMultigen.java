@@ -1,9 +1,8 @@
 package mutation;
 
 import models.Equipment;
-
-import java.security.InvalidParameterException;
-import java.util.Map;
+import models.Property;
+import java.util.Random;
 
 public class LimitedMultigen implements Mutation {
 
@@ -13,16 +12,16 @@ public class LimitedMultigen implements Mutation {
         this.criteria = criteria;
     }
 
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
-        if(params.get("M") != null) {
-            int M = (Integer) params.get("M");
-            Gen genMutation = new Gen(criteria);
-            Equipment newEq = null;
+    public Equipment perform(Equipment eq) {
+        Random rand = new Random();
+        int M = rand.nextInt(Property.values().length);
+        Gen genMutation = new Gen(criteria);
+        Equipment newEq = null;
+        if(rand.nextDouble() < criteria) {
             for(int i = 0; i < M; i++) {
-                newEq = genMutation.perform(eq, params);
+                newEq = genMutation.perform(eq);
             }
-            return newEq == null ? eq : newEq;
         }
-        throw new InvalidParameterException();
+        return newEq == null ? eq : newEq;
     }
 }

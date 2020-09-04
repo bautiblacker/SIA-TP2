@@ -1,5 +1,6 @@
 package mutation;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.Property;
 
@@ -15,23 +16,15 @@ public class UniformMultigen implements Mutation {
     }
 
     @Override
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
+    public Equipment perform(Equipment eq) {
         Random random = new Random();
-        int delta = (Integer) params.get("delta");
         double prob;
-        Object classEq;
-        Equipment newEq = null;
-        try {
-            classEq = eq.getClass().newInstance();
-            newEq = (Equipment) classEq;
-            for(Property p : Property.values()) {
-                prob = random.nextDouble();
-                if(prob < criteria) {
-                    newEq.mutate(p, eq.getProperties().get(p) + delta);
-                }
+        Equipment newEq = eq.copy();
+        for(Property p : Property.values()) {
+            prob = random.nextDouble();
+            if(prob < criteria) {
+                newEq.mutate(p);
             }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
         return newEq == null ? eq : newEq;
     }

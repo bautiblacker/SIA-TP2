@@ -10,4 +10,8 @@ public class Boot extends EquipmentImpl {
     public Boot(Map<Property, Double> properties){
         super(properties);
     }
+
+    public Boot copy() {
+        return new Boot(this.getProperties());
+    }
 }

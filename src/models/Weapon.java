@@ -11,4 +11,8 @@ public class Weapon extends EquipmentImpl {
     public Weapon(Map<Property, Double> properties){
         super(properties);
     }
+
+    public Weapon copy() {
+        return new Weapon(this.getProperties());
+    }
 }

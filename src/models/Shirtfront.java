@@ -11,4 +11,8 @@ public class Shirtfront extends EquipmentImpl{
     public Shirtfront(Map<Property, Double> properties){
         super(properties);
     }
+
+    public Shirtfront copy() {
+        return new Shirtfront(this.getProperties());
+    }
 }

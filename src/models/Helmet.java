@@ -11,4 +11,8 @@ public class Helmet extends EquipmentImpl{
     public Helmet(Map<Property, Double> properties){
         super(properties);
     }
+
+    public Helmet copy() {
+        return new Helmet(this.getProperties());
+    }
 }

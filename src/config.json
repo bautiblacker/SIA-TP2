@@ -12,6 +12,7 @@
     }
   ],
   "crossover": "singlepoint",
+  "crossover_prob": 0.6,
   "mutation": "complete",
   "mutation_prob": 0.5,
   "implementation": "fillall",

@@ -5,6 +5,7 @@ import crossover.CrossOverMethodType;
 import exceptions.InvalidArgumentException;
 import implementations.Implementation;
 import implementations.ImplementationType;
+import models.ConfigParams;
 import models.Pair;
 import mutation.Mutation;
 import mutation.MutationMethodType;
@@ -21,13 +22,12 @@ import java.io.Reader;
 import java.util.*;
 
 public class ConfigParser {
-    public static Map<String, Object> parse(String path) {
+    public static ConfigParams parse(String path) {
         JSONParser parser = new JSONParser();
         Reader configReader;
-        Map<String, Object> configParams = new HashMap<>();
-        Pair<Mutation, Double> mutationMethod;
-        CrossOver crossOverMethod;
-        List<Pair<SelectionMethod, Map<String, Object>>> methods;
+        ConfigParams configParams = new ConfigParams();
+        Mutation mutationMethod;
+        Pair<CrossOver, Double> crossOverMethod;
         Implementation implementation;
         long population, select;
 
@@ -39,12 +39,11 @@ public class ConfigParser {
             String mutationName= (String) json.get("mutation");
             Double mutationProb = (Double) json.get("mutation_prob");
             mutationMethod = getAndValidateMutation(mutationName.toUpperCase(), mutationProb);
-            System.out.println("MUTATION METHOD --> " + mutationMethod.toString() + ", PROB:" + mutationProb);
 
             //  Crossover method validation
             String crossoverName = (String) json.get("crossover");
-            crossOverMethod = getAndValidateCrossover(crossoverName.toUpperCase());
-            System.out.println("CrossOver METHOD --> " + mutationMethod.toString());
+            double crossoverProb = (Double) json.get("crossover_prob");
+            crossOverMethod = getAndValidateCrossover(crossoverName.toUpperCase(), crossoverProb);
 
             // Population and select
             population = (Long) json.get("population");
@@ -53,61 +52,46 @@ public class ConfigParser {
                 throw new InvalidArgumentException("Invalid population/ select number: Number must be grater than 0");
             }
 
-            System.out.println("Population --> " + population);
-            System.out.println("Select --> " + select);
-
             // Selection methods validation
             JSONArray selectionMethods = (JSONArray) json.get("selection_methods");
-            methods = getAndValidateSelectionMethods(selectionMethods, select);
-
-            System.out.println("METHODS AND PARAMS:");
-            for(Pair p : methods) {
-                System.out.println("\t" + p.getKey().getClass());
-                System.out.println("\t Params: ");
-                Map<String, Object> value = ((Map<String, Object>)p.getValue());
-                for(String s : value.keySet()) {
-                    System.out.println("\t\t" + value.get(s));
-                }
-                System.out.println();
-            }
+            getAndValidateSelectionMethods(configParams, selectionMethods);
 
             // Implementation method validation
             String implementationName = (String) json.get("implementation");
             implementation = getAndValidateImplementation(implementationName.toUpperCase());
-            System.out.println("Implementation --> " + implementation);
 
         } catch (IOException | ParseException | InvalidArgumentException e) {
             System.out.println(e.getMessage());
             return null;
         }
-        configParams.put("mutation", mutationMethod);
-        configParams.put("crossover", crossOverMethod);
-        configParams.put("selectionMethods", methods);
-        configParams.put("implementation", implementation);
-        configParams.put("population", population);
+        configParams.setMutationMethod(mutationMethod);
+        configParams.setImplementation(implementation);
+        configParams.setCrossoverMethod(crossOverMethod);
+        configParams.setPopulation(population);
+        configParams.setSelect(select);
         return configParams;
 
     }
 
-    private static Pair<Mutation, Double> getAndValidateMutation(String mutation, double mutationProb) throws InvalidArgumentException {
+    private static Mutation getAndValidateMutation(String mutation, double mutationProb) throws InvalidArgumentException {
          if(MutationMethodType.contains(mutation) && mutationProb > 0 && mutationProb <= 1) {
              MutationMethodType mutationMethodType = MutationMethodType.valueOf(mutation);
-             Mutation method =  MutationMethodType.getMethodInstance(mutationMethodType, mutationProb);
-             return new Pair<>(method, mutationProb);
+             return MutationMethodType.getMethodInstance(mutationMethodType, mutationProb);
          }
          throw new InvalidArgumentException("Mutation Method Invalid");
     }
 
-    private static CrossOver getAndValidateCrossover(String crossover) throws InvalidArgumentException {
-        if(CrossOverMethodType.contains(crossover)) {
+    private static Pair<CrossOver, Double> getAndValidateCrossover(String crossover, Double prob) throws InvalidArgumentException {
+        if(CrossOverMethodType.contains(crossover) && prob > 0 && prob < 1) {
             CrossOverMethodType crossOverMethodType = CrossOverMethodType.valueOf(crossover);
-            return CrossOverMethodType.getMethodInstance(crossOverMethodType);
+            CrossOver method =  CrossOverMethodType.getMethodInstance(crossOverMethodType);
+            return new Pair<>(method, prob);
         }
-        throw new InvalidArgumentException("Crossover Method Invalid");
+        throw new InvalidArgumentException("Crossover Params Invalid");
     }
 
-    private static List<Pair<SelectionMethod, Map<String, Object>>> getAndValidateSelectionMethods(JSONArray selectionMethods, long select) throws InvalidArgumentException {
-        List<Pair<SelectionMethod, Map<String, Object>>> methods = new ArrayList<>();
+    private static void getAndValidateSelectionMethods(ConfigParams configParams, JSONArray selectionMethods) throws InvalidArgumentException {
+        List<Pair<SelectionMethod, Double>> methods = new ArrayList<>();
         double totalProb = 0;
         for (Object selectionMethod : selectionMethods) {
             JSONObject method = (JSONObject) selectionMethod;
@@ -118,16 +102,13 @@ public class ConfigParser {
                 if(totalProb <= 1 && (prob > 0 && prob <= 1)) {
                     totalProb += prob;
                     SelectionMethod sm = SelectionMethodType.getMethodInstance(type);
-                    Map<String, Object> methodParams = new HashMap<>();
-                    methodParams.put("method_prob", prob);
-                    methodParams.put("select", select);
-                    parseType(methodParams, method, type);
-                    Pair<SelectionMethod, Map<String, Object>> newMethod = new Pair<>(sm, methodParams);
+                    parseType(configParams, method, type);
+                    Pair<SelectionMethod, Double> newMethod = new Pair<>(sm, prob);
                     methods.add(newMethod);
                 } else throw new InvalidArgumentException("Invalid percentage for method:" + methodName);
             } else throw new InvalidArgumentException("Invalid Selection Method: " + methodName);
         }
-        return methods;
+        configParams.setSelectionMethods(methods);
     }
 
     private static Implementation getAndValidateImplementation(String implementation) throws InvalidArgumentException {
@@ -138,21 +119,21 @@ public class ConfigParser {
         throw new InvalidArgumentException("Invalid implementation method:" + implementation);
     }
 
-    private static void parseType(Map<String, Object> methodParams, JSONObject method, SelectionMethodType type) throws InvalidArgumentException {
+    private static void parseType(ConfigParams configParams, JSONObject method, SelectionMethodType type) throws InvalidArgumentException {
         switch (type) {
             case TOURNAMENTPROB:
                 double threshold = (Double) method.get("threshold");
-                if(threshold >= 0.5 && threshold <=1) methodParams.put("threshold", threshold);
+                if(threshold >= 0.5 && threshold <=1) configParams.setTournamentT(threshold);
                 else throw new InvalidArgumentException("Invalid Threshold: " + threshold);
                 break;
             case TOURNAMENTDET:
-                long M = (Long) method.get("tournament_m");
-                if(M > 0) methodParams.put("tournament_m", M);
+                long M = (Integer) method.get("tournament_m");
+                if(M > 0) configParams.setTournamentM(M);
                 else throw new InvalidArgumentException("Invalid M parameter: " + M);
                 break;
             case BOLTZMANN:
                 double T = (Double) method.get("temperature");
-                if(T > 0) methodParams.put("temperature", T);
+                if(T > 0) configParams.setBoltzmannT(T);
                 else throw new InvalidArgumentException("Invalid temperature: " + T);
                 break;
         }
