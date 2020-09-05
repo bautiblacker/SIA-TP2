@@ -52,4 +52,10 @@ public class Equipment implements Allele {
 
     //TODO: OVERRIDE
     //OVERRIDE MUTATION
+
+
+    @Override
+    public void mutate() {
+
+    }
 }

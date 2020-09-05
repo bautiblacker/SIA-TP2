@@ -1,29 +1,20 @@
 package mutation;
-
-<<<<<<< HEAD
 public enum MutationMethodType {
     GEN,
     LIMITEDMULTIGEN,
     UNIFORMMULTIGEN,
     COMPLETE;
-=======
-public enum  MutationMethodType {
-    GEN(new Gen()),
-    LIMITEDMULTIGEN(new LimitedMultigen()),
-    UNIFORMMULTIGEN(new UniformMultigen()),
-    COMPLETE(new Complete());
->>>>>>> new begin big commit
 
     public static Mutation getMethodInstance(MutationMethodType type, double prob) {
         switch (type) {
             case GEN:
-                return new Gen(prob);
+                return new Gen();
             case COMPLETE:
-                return new Complete(prob);
+                return new Complete();
             case LIMITEDMULTIGEN:
-                return new LimitedMultigen(prob);
+                return new LimitedMultigen();
             case UNIFORMMULTIGEN:
-                return new UniformMultigen(prob);
+                return new UniformMultigen();
         }
         return null;
     }
