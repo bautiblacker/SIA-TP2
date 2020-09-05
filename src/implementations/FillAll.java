@@ -1,4 +1,17 @@
 package implementations;
+import models.ConfigParams;
+import newModels.Player;
+import selection.SelectionMethod;
 
-public class FillAll implements Implementation {
+import java.util.List;
+
+public class FillAll extends Implementation {
+
+    public FillAll(SelectionMethod method) { super(method); }
+
+    @Override
+    public List<Player> implement(List<Player> children, List<Player> parents, ConfigParams configParams) {
+        children.addAll(parents);
+        return getMethod().select(children, configParams);
+    }
 }
