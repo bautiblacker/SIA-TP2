@@ -1,8 +1,5 @@
 package crossover;
 
-import models.ConfigParams;
-import models.Equipment;
-import models.Property;
 import newModels.Allele;
 import newModels.Player;
 
@@ -15,7 +12,6 @@ public class UniformCrossover implements CrossOver{
     @Override
     public Player[] cross(Player p1, Player p2) {
         Random random = new Random();
-
 
         List<Allele> characterOneAppearance = new ArrayList<>();
         List<Allele> characterTwoAppearance = new ArrayList<>();

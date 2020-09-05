@@ -21,4 +21,14 @@ public enum CharacterClass{
         this.attackMultiplier = attackMultiplier;
         this.defenseMultiplier = defenseMultiplier;
     }
+
+    public static boolean contains(String type) {
+        for(CharacterClass character : CharacterClass.values()) {
+            if(character.name().equals(type.toUpperCase())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

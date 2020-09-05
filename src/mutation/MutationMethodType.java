@@ -5,7 +5,7 @@ public enum MutationMethodType {
     UNIFORMMULTIGEN,
     COMPLETE;
 
-    public static Mutation getMethodInstance(MutationMethodType type, double prob) {
+    public static Mutation getMethodInstance(MutationMethodType type) {
         switch (type) {
             case GEN:
                 return new Gen();
