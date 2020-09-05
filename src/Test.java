@@ -1,7 +1,13 @@
+import models.ConfigParams;
+import models.EquipmentType;
+import newModels.*;
 import parsers.ConfigParser;
+import selection.Ranking;
 
 
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class Test {
@@ -94,13 +100,13 @@ public class Test {
 //        configParams.setBoltzmannTc(10);
 //        configParams.setBoltzmannK(1.38064852 * Math.pow(10, -23));
 //        Ranking roullete = new Ranking();
-//        List<Player> ans = roullete.select(players, configParams);
+//        List<Player> ans = roullete.select(players, configParams, configParams.getSelectionLimit());
 //        System.out.println("ANS -->");
 //        for (Player player : ans){
 //            System.out.println(player.getPerformance());
 //        }
 
         String configPath = args[0];
-        Map<String, Object> configParams = ConfigParser.parse(configPath);
+        ConfigParams configParams = ConfigParser.parse(configPath);
     }
 }

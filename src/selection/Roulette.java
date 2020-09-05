@@ -11,11 +11,13 @@ public class Roulette implements SelectionMethod {
 
     public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
         List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
+        System.out.println(rouletteNodes);
         List<Player> selectedPlayers = new ArrayList<>();
         Random random = new Random();
         double r;
         while (selectLimit > 0) {
             r = random.nextDouble();
+            System.out.println("R ----> " + r);
             Player e = findPlayer(rouletteNodes, r);
             selectedPlayers.add(e);
             selectLimit--;
@@ -47,7 +49,11 @@ public class Roulette implements SelectionMethod {
     }
 
     Player findPlayer(List<RouletteNode> players, double r) {
-        int start = 0, end = players.size() - 1, middle = 0;
+        int start = 0, end = players.size() - 1, middle;
+
+        if(players.get(0).performance > r) {
+            return players.get(0).player;
+        }
 
         while (end - start > 1) {
             middle = (end + start) / 2;

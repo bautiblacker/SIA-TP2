@@ -1,32 +1,32 @@
 {
-  "player_type": "WARRIOR",
-  "population": 20,
-  "select_limit": 10,
+  "PLAYER_TYPE": "WARRIOR",
+  "POPULATION": 20,
+  "SELECTION_LIMIT": 10,
 
-  "mutation": "complete",
-  "mutation_prob": 0.5,
+  "MUTATION": "complete",
+  "MUTATION_PROB": 0.5,
 
-  "crossover": "singlepoint",
-  "crossover_prob": 0.5,
-  "uniform_threshold": 0.3,
+  "CROSSOVER": "singlepoint",
+  "CROSSOVER_PROB": 0.5,
+  "UNIFORM_THRESHOLD": 0.3,
 
-  "selection_method_A": "elite",
-  "selection_method_B": "ranking",
-  "selection_method_prob": 0.3,
+  "SELECTION_METHOD_A": "elite",
+  "SELECTION_METHOD_B": "ranking",
+  "SELECTION_METHOD_PROB": 0.3,
 
-  "replacement_method_A": "universal",
-  "replacement_method_B": "roulette",
-  "replacement_method_prob": 0.4,
+  "REPLACEMENT_METHOD_A": "universal",
+  "REPLACEMENT_METHOD_B": "roulette",
+  "REPLACEMENT_METHOD_PROB": 0.4,
 
-  "tournament_prob_threshold": 5,
-  "tournament_det_m": 5,
+  "TOURNAMENT_PROB_THRESHOLD": 5,
+  "TOURNAMENT_DET_M": 5,
 
-  "boltzmannT0": 20,
-  "boltzmannTk": 5,
+  "BOLTZMANN_T0": 20,
+  "BOLZTMANN_TK": 5,
 
-  "implementation": "fillall",
+  "IMPLEMENTATION_METHOD": "fillall",
 
-  "criteria": "timeout",
-  "criteria_param": 10
+  "CRITERIA": "timeout",
+  "CRITERIA_PARAM": 10
 
 }

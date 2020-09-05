@@ -46,4 +46,9 @@ public class Player implements Genotype {
         double height = ((Height) this.characterAppearance.get(0)).getValue();
         return (1.9 + (2.5 * height - 4.16) * 4 - (2.5 * height - 4.16) * 2 - 3 * height / 10);
     }
+
+    @Override
+    public String toString() {
+        return characterClass + " " + getPerformance();
+    }
 }

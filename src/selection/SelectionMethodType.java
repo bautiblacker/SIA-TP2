@@ -2,7 +2,7 @@ package selection;
 
 public enum SelectionMethodType {
     ELITE,
-    ROULLETE,
+    ROULETTE,
     UNIVERSAL,
     BOLTZMANN,
     TOURNAMENTDET,
@@ -24,7 +24,7 @@ public enum SelectionMethodType {
                 return new Elite();
             case RANKING:
                 return new Ranking();
-            case ROULLETE:
+            case ROULETTE:
                 return new Roulette();
             case UNIVERSAL:
                 return new Universal();

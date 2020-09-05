@@ -33,7 +33,7 @@ public class Ranking extends Roulette {
     }
 
     @Override
-    double getTotalFitness(List<Player> players, double... params) {
+    double getTotalFitness(List<Player> players, double ... params) {
         long size = players.size();
         AtomicLong index = new AtomicLong();
         return players.stream().mapToDouble((p) -> (size - index.getAndIncrement()) / (double) size).sum();

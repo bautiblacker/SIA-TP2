@@ -48,6 +48,14 @@ public class ConfigParams {
 
     private StopCriteria Criteria;
 
+    public StopCriteria getCriteria() {
+        return Criteria;
+    }
+
+    public void setCriteria(StopCriteria criteria) {
+        Criteria = criteria;
+    }
+
     public CharacterClass getPlayerClass() {
         return playerClass;
     }

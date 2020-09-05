@@ -14,8 +14,8 @@ class RouletteNode {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(player.getClass().toString()).append('\n');
-        sb.append("CUMULATIVE FITNESS: ").append(performance).append('\n');
+        sb.append(player);
+        sb.append(" CUMULATIVE FITNESS: ").append(performance).append('\n');
 
         return sb.toString();
     }

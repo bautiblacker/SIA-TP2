@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 import selection.SelectionMethod;
 import selection.SelectionMethodType;
 import stopCriteria.CriteriaTypes;
+import stopCriteria.StopCriteria;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,16 +27,18 @@ class Validate {
             Mutation method = MutationMethodType.getMethodInstance(mutationMethodType);
             configParam.setMutationMethod(method);
             configParam.setMutationProb(mutationProb);
+            return;
         }
         throw new InvalidArgumentException("Mutation Method Invalid");
     }
 
     static void getAndValidateCrossover(ConfigParams configParam, String crossover, Double prob) throws InvalidArgumentException {
-        if(CrossOverMethodType.contains(crossover) && prob > 0 && prob < 1) {
+        if(CrossOverMethodType.contains(crossover) && (prob!= null && prob > 0 && prob < 1)) {
             CrossOverMethodType crossOverMethodType = CrossOverMethodType.valueOf(crossover);
             CrossOver method =  CrossOverMethodType.getMethodInstance(crossOverMethodType);
             configParam.setCrossoverMethod(method);
             configParam.setCrossoverProb(prob);
+            return;
         }
         throw new InvalidArgumentException("Crossover Params Invalid");
     }
@@ -45,8 +48,8 @@ class Validate {
         SelectionMethod methodB = validateMethod(configParams, json, SELECTION_METHOD_B);
         SelectionMethod repMethodA = validateMethod(configParams, json, REPLACEMENT_METHOD_A);
         SelectionMethod repMethodB = validateMethod(configParams, json, REPLACEMENT_METHOD_B);
-        Double selectionProb = (Double) json.get(Parameters.SELECTION_METHOD_PROB);
-        Double replacementProb = (Double) json.get(Parameters.REPLACEMENT_METHOD_PROB);
+        Double selectionProb = (Double) json.get(Parameters.SELECTION_METHOD_PROB.name());
+        Double replacementProb = (Double) json.get(Parameters.REPLACEMENT_METHOD_PROB.name());
         if(!(validProb(selectionProb) && validProb(replacementProb))) {
             throw new InvalidArgumentException("Invalid prob");
         }
@@ -66,13 +69,14 @@ class Validate {
     static void getAndValidateImplementation(ConfigParams configParam, String implementation) throws InvalidArgumentException {
         if(ImplementationType.contains(implementation)) {
             configParam.setImplementationType(ImplementationType.valueOf(implementation));
+            return;
         }
 
         throw new InvalidArgumentException("Invalid implementation method:" + implementation);
     }
 
     private static SelectionMethod validateMethod(ConfigParams configParams, JSONObject json, Parameters method) throws InvalidArgumentException {
-        String selectionMethod = (String) json.get(method);
+        String selectionMethod = (String) json.get(method.name());
         if(SelectionMethodType.contains(selectionMethod.toUpperCase())) {
             SelectionMethodType type = SelectionMethodType.valueOf(selectionMethod.toUpperCase());
             parseType(configParams, json, type);
@@ -84,18 +88,18 @@ class Validate {
     private static void parseType(ConfigParams configParams, JSONObject json, SelectionMethodType type) throws InvalidArgumentException {
         switch (type) {
             case TOURNAMENTPROB:
-                double threshold = (Double) json.get(TOURNAMENT_PROB_THRESHOLD);
+                double threshold = (Double) json.get(TOURNAMENT_PROB_THRESHOLD.name());
                 if(threshold >= 0.5 && threshold <=1) configParams.setTournamentT(threshold);
                 else throw new InvalidArgumentException("Invalid Threshold: " + threshold);
                 break;
             case TOURNAMENTDET:
-                long M = (Integer) json.get(TOURNAMENT_DET_M);
+                long M = (Integer) json.get(TOURNAMENT_DET_M.name());
                 if(M > 0) configParams.setTournamentM(M);
                 else throw new InvalidArgumentException("Invalid M parameter: " + M);
                 break;
             case BOLTZMANN:
-                Double T = (Double) json.get(BOLTZMANN_T0);
-                Double Tk = (Double) json.get(BOLTZMANN_TK);
+                Double T = (Double) json.get(BOLTZMANN_T0.name());
+                Double Tk = (Double) json.get(BOLTZMANN_TK.name());
                 if(T > 0 && Tk > 0){
                     configParams.setBoltzmannT0(T);
                     configParams.setBoltzmannTc(Tk);
@@ -108,6 +112,7 @@ class Validate {
     static void getAndValidatePlayer(ConfigParams configParam, String type) throws InvalidArgumentException {
         if(type != null && CharacterClass.contains(type)) {
             configParam.setPlayerClass(CharacterClass.valueOf(type));
+            return;
         }
 
         throw new InvalidArgumentException("Invalid character class");
@@ -122,9 +127,11 @@ class Validate {
         configParam.setSelectionLimit(selectionLimit);
     }
 
-    static void getAndValidateCriteria(ConfigParams configParam, String criteria) throws InvalidArgumentException {
+    static void getAndValidateCriteria(ConfigParams configParam, String criteria, Number param) throws InvalidArgumentException {
         if(CriteriaTypes.contains(criteria)) {
-            configParam.setImplementationType(CriteriaTypes.valueOf(criteria));
+            StopCriteria stopCriteria = CriteriaTypes.getCriteriaInstance(CriteriaTypes.valueOf(criteria), param);
+            configParam.setCriteria(stopCriteria);
+            return;
         }
 
         throw new InvalidArgumentException("Invalid implementation method:" + criteria);

@@ -1,3 +1,4 @@
+import models.ConfigParams;
 import models.Equipment;
 import models.EquipmentType;
 import org.json.simple.parser.JSONParser;
@@ -18,7 +19,7 @@ public class SelectionResolver {
         try {
             Reader reader = new FileReader(filePath);
             EquipmentType equipmentType = equipmentTypeByFileName(filePath);
-            Map<String, Object> configParams = ConfigParser.parse(configPath);
+            ConfigParams configParams = ConfigParser.parse(configPath);
             List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType);
 
         } catch (Exception e){

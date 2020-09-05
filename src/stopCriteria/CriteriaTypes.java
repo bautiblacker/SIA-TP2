@@ -1,15 +1,15 @@
 package stopCriteria;
 
 public enum CriteriaTypes {
-    CRITERIA_GENERATIONS,
-    CRITERIA_TIMEOUT,
-    CRITERIA_ACCEPTABLE_SOLUTION,
-    CRITERIA_CONTENT,
-    CRITERIA_STRUCTURE;
+    GENERATIONS,
+    TIMEOUT,
+    ACCEPTABLE_SOLUTION,
+    CONTENT,
+    STRUCTURE;
 
     public static boolean contains(String type) {
         for(CriteriaTypes c : CriteriaTypes.values()) {
-            if(type.equals(c.name().toUpperCase())) {
+            if(c.name().equals(type.toUpperCase())) {
                 return true;
             }
         }
@@ -18,13 +18,13 @@ public enum CriteriaTypes {
 
     public static StopCriteria getCriteriaInstance(CriteriaTypes type, Number param) {
         switch (type) {
-            case CRITERIA_CONTENT:
+            case CONTENT:
                 return new ContentCriteria(param.intValue());
-            case CRITERIA_TIMEOUT:
+            case TIMEOUT:
                 return new TimeOutCriteria(param.doubleValue());
-            case CRITERIA_ACCEPTABLE_SOLUTION:
+            case ACCEPTABLE_SOLUTION:
                 return new AcceptableSolutionCriteria(param.doubleValue());
-            case CRITERIA_GENERATIONS:
+            case GENERATIONS:
                 return new GenerationNumberCriteria(param.intValue());
         }
 
