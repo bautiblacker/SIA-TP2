@@ -1,8 +1,10 @@
 package crossover;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.Property;
+import newModels.Player;
 
 public interface CrossOver {
-    Equipment[] perform(Equipment e1, Equipment e2);
+    Player[] cross(Player p1, Player p2);
 }

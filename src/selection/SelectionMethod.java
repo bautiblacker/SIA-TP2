@@ -1,10 +1,12 @@
 package selection;
 
+import models.ConfigParams;
 import models.Equipment;
+import newModels.Player;
 
 import java.util.List;
 import java.util.Map;
 
 public interface SelectionMethod {
-    List<Equipment> select(List<Equipment> equipment, Map<String, Double> selectParams);
+    List<Player> select(List<Player> players, ConfigParams configParams);
 }

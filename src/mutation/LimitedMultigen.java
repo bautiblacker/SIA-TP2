@@ -1,12 +1,13 @@
 package mutation;
 
-import models.Equipment;
+import models.ConfigParams;
+import newModels.Player;
 
-import java.security.InvalidParameterException;
-import java.util.Map;
+import java.util.Random;
 
 public class LimitedMultigen implements Mutation {
 
+<<<<<<< HEAD
     private double criteria;
 
     public LimitedMultigen(double criteria) {
@@ -20,9 +21,17 @@ public class LimitedMultigen implements Mutation {
             Equipment newEq = null;
             for(int i = 0; i < M; i++) {
                 newEq = genMutation.perform(eq, params);
+=======
+    public void mutate(Player player, ConfigParams configParams) {
+        int M = configParams.getMutationMultiGenM();
+        double probability = configParams.getMutationProb();
+        Random random = new Random();
+        int r = random.nextInt(M) + 1;
+        for (int i = 0; i < r; i++) {
+            if (probability > random.nextDouble()) {
+                player.getCharacterAppearance().get(random.nextInt(player.getCharacterAppearance().size())).mutate();
+>>>>>>> new begin big commit
             }
-            return newEq == null ? eq : newEq;
         }
-        throw new InvalidParameterException();
     }
 }

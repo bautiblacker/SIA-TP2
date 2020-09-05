@@ -1,7 +1,9 @@
 package mutation;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.Property;
+import newModels.Player;
 
 import java.util.Map;
 import java.util.Random;
@@ -15,23 +17,18 @@ public class Complete implements Mutation {
     }
 
     @Override
+<<<<<<< HEAD
     public Equipment perform(Equipment eq, Map<String, Object> params) {
         int delta = (Integer) params.get("delta");
+=======
+    public void mutate(Player player, ConfigParams configParams) {
+>>>>>>> new begin big commit
         Random random = new Random();
-        Object classEq;
-        Equipment newEq = null;
-        try {
-            classEq = eq.getClass().newInstance();
-            newEq = (Equipment) classEq;
-            if(random.nextDouble() < criteria) {
-                for(Property p : Property.values()) {
-                    newEq.mutate(p, eq.getProperties().get(p) + delta);
-                }
+        double probability = configParams.getMutationProb();
+        if (probability > random.nextDouble()) {
+            for (int i = 0; i < player.getCharacterAppearance().size(); i++) {
+                player.getCharacterAppearance().get(i).mutate();
             }
-
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
-        return newEq == null ? eq : newEq;
     }
 }

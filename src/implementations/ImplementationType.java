@@ -14,9 +14,15 @@ public enum ImplementationType {
     public static Implementation getMethodInstance(ImplementationType type) {
         switch (type) {
             case FILLALL:
+<<<<<<< HEAD
                 return new FillAll();
             case FILLPARENTS:
                 return new FillParents();
+=======
+                return null;
+            case FILLPARENTS:
+                return null;
+>>>>>>> new begin big commit
         }
         return null;
     }

@@ -2,19 +2,20 @@ package crossover;
 
 import models.ConfigParams;
 import models.Equipment;
-import models.EquipmentImpl;
 import models.Property;
 import newModels.Allele;
 import newModels.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
-public class SinglePointCrossover implements CrossOver {
+public class UniformCrossover implements CrossOver{
 
     @Override
     public Player[] cross(Player p1, Player p2) {
         Random random = new Random();
-        int locus = random.nextInt(p1.getCharacterAppearance().size());
+
 
         List<Allele> characterOneAppearance = new ArrayList<>();
         List<Allele> characterTwoAppearance = new ArrayList<>();
@@ -22,8 +23,8 @@ public class SinglePointCrossover implements CrossOver {
         for (int i = 0; i < p1.getCharacterAppearance().size(); i++) {
             Allele equipmentP1 = p1.getCharacterAppearance().get(i);
             Allele equipmentP2 = p2.getCharacterAppearance().get(i);
-
-            if (i >= locus) {
+            int locus = random.nextInt(2);
+            if (locus == 0) {
                 characterOneAppearance.add(equipmentP2);
                 characterTwoAppearance.add(equipmentP1);
             } else {

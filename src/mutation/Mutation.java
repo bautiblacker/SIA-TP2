@@ -1,9 +1,8 @@
 package mutation;
 
-import models.Equipment;
-
-import java.util.Map;
+import models.ConfigParams;
+import newModels.Player;
 
 public interface Mutation {
-    Equipment perform(Equipment eq, Map<String, Object> params);
+    void mutate(Player player, ConfigParams configParams);
 }

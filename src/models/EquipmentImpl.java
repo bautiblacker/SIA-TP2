@@ -64,6 +64,9 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     }
 
     @Override
+    public void setFitness(double newFitness) {this.fitness = newFitness;}
+
+    @Override
     public boolean equals(Object o) {
         if(o == this) {
             return true;

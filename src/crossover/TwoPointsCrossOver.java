@@ -1,39 +1,43 @@
 package crossover;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.EquipmentImpl;
 import models.Property;
+import newModels.Allele;
+import newModels.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class TwoPointsCrossOver implements CrossOver {
 
     @Override
-    public Equipment[] perform(Equipment e1, Equipment e2) {
+    public Player[] cross(Player p1, Player p2) {
         Random random = new Random();
-        int pointOne = random.nextInt(6);
-        int pointTwo = random.nextInt(6);
+        int locusOne = random.nextInt(p1.getCharacterAppearance().size());
+        int locusTwo = random.nextInt(p1.getCharacterAppearance().size());
+        List<Integer> locus = new ArrayList<>();
+        locus.add(locusOne);
+        locus.add(locusTwo);
+        locus.sort(Comparator.comparingInt(Integer::intValue));
 
-        Map<Property, Double> childrenOneProperties = new HashMap<>();
-        Map<Property, Double> childrenTwoProperties = new HashMap<>();
+        List<Allele> characterOneAppearance = new ArrayList<>();
+        List<Allele> characterTwoAppearance = new ArrayList<>();
 
-        for(int i = 0; i < Property.values().length; i++) {
-            Property property = Property.values()[i];
-            double valueE1 = e1.getProperties().get(property);
-            double valueE2 = e2.getProperties().get(property);
-            if(i >= pointOne && i <= pointTwo) {
-                childrenOneProperties.put(property, valueE2);
-                childrenTwoProperties.put(property, valueE1);
+        for (int i = 0; i < p1.getCharacterAppearance().size(); i++) {
+            Allele equipmentP1 = p1.getCharacterAppearance().get(i);
+            Allele equipmentP2 = p2.getCharacterAppearance().get(i);
+
+            if (i >= locus.get(0) && i<= locus.get(1)) {
+                characterOneAppearance.add(equipmentP2);
+                characterTwoAppearance.add(equipmentP1);
             } else {
-                childrenOneProperties.put(property, valueE1);
-                childrenTwoProperties.put(property, valueE2);
+                characterOneAppearance.add(equipmentP1);
+                characterTwoAppearance.add(equipmentP2);
             }
         }
-
-        Equipment childrenOne = new EquipmentImpl(childrenOneProperties);
-        Equipment childrenTwo = new EquipmentImpl(childrenTwoProperties);
-        return new Equipment[]{childrenOne, childrenTwo};
+        Player childOne = new Player(p1.getCharacterClass(), characterOneAppearance);
+        Player childTwo = new Player(p2.getCharacterClass(), characterTwoAppearance);
+        return new Player[]{childOne, childTwo};
     }
 }

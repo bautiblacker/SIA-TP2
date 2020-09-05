@@ -1,35 +1,35 @@
 package selection;
 
-import models.Equipment;
+import models.ConfigParams;
+import newModels.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class Roulette implements SelectionMethod {
 
-    public List<Equipment> select(List<Equipment> equipment, Map<String, Double> selectParams) {
-        int selectionLimit = selectParams.get("selectionLimit").intValue();
-        List<RouletteNode> rouletteNodes = getRouletteList(equipment);
-        List<Equipment> selectedItems = new ArrayList<>();
+    public List<Player> select(List<Player> players, ConfigParams configParams) {
+        long selectionLimit = configParams.getSelectionLimit();
+        List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
+        List<Player> selectedPlayers = new ArrayList<>();
         Random random = new Random();
         double r;
-        while(selectionLimit > 0) {
+        while (selectionLimit > 0) {
             r = random.nextDouble();
-            Equipment e = findEquipment(rouletteNodes, r);
-            selectedItems.add(e);
+            Player e = findPlayer(rouletteNodes, r);
+            selectedPlayers.add(e);
             selectionLimit--;
         }
-        return selectedItems;
+        return selectedPlayers;
     }
 
-    List<RouletteNode> getRouletteList(List<Equipment> equipment) {
-        double totalFitness = getTotalFitness(equipment);
+    List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
+        double totalFitness = getTotalFitness(players);
         double prevCumulativeFitness = 0;
         List<RouletteNode> rouletteList = new ArrayList<>();
-        for(Equipment e : equipment) {
-            double relativeFitness = e.getFitness()/totalFitness;
+        for (Player e : players) {
+            double relativeFitness = e.getPerformance() / totalFitness;
             double cumulativeFitness = prevCumulativeFitness + relativeFitness;
             RouletteNode newRouletteNode = new RouletteNode(e, cumulativeFitness);
             rouletteList.add(newRouletteNode);
@@ -39,51 +39,27 @@ public class Roulette implements SelectionMethod {
         return rouletteList;
     }
 
-    private double getTotalFitness(List<Equipment> equipments) {
+    double getTotalFitness(List<Player> players, double... params) {
         double total = 0;
-        for(Equipment e : equipments) {
-            total += e.getFitness();
+        for (Player e : players) {
+            total += e.getPerformance();
         }
-
         return total;
     }
 
-    Equipment findEquipment(List<RouletteNode> equipments, double r) {
-        int start = 0, end = equipments.size() - 1, middle = 0;
-        RouletteNode prevNode, currentNode, nextNode;
+    Player findPlayer(List<RouletteNode> players, double r) {
+        int start = 0, end = players.size() - 1, middle = 0;
 
-        // edge cases
-        if(equipments.get(0).fitness >= r) {
-            return equipments.get(start).equipment;
-        } else if(equipments.get(end).fitness <= r) {
-            return equipments.get(end).equipment;
-        }
-
-        while(start <= end) {
-            middle = (start + end) / 2;
-            currentNode = equipments.get(middle);
-            if (currentNode.fitness == r) {
-                return currentNode.equipment;
-            }
-
-            if (currentNode.fitness > r) {
-                prevNode = equipments.get(middle - 1);
-                if (middle > 0 && r > prevNode.fitness) {
-                    return getBiggest(prevNode, currentNode);
-                }
+        while (end - start > 1) {
+            middle = (end + start) / 2;
+            if (players.get(middle).performance > r) {
                 end = middle;
+            } else if (players.get(end).performance == r) {
+                break;
             } else {
-                nextNode = equipments.get(middle + 1);
-                if (middle < end-1 && r < nextNode.fitness) {
-                    return getBiggest(currentNode, nextNode);
-                }
-                start = middle + 1;
+                start = middle;
             }
         }
-        return equipments.get(middle).equipment;
-    }
-
-    private Equipment getBiggest(RouletteNode eq1, RouletteNode eq2) {
-        return (eq1.fitness > eq2.fitness) ? eq1.equipment : eq2.equipment;
+        return players.get(end).player;
     }
 }
