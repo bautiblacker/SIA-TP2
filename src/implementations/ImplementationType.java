@@ -11,7 +11,7 @@ public enum ImplementationType {
         return false;
     }
 
-    public static Implementation getMethodInstance(ImplementationType type) {
+    public static ImplementationMethod getMethodInstance(ImplementationType type) {
         switch (type) {
             case FILLALL:
                 return null;
