@@ -10,19 +10,8 @@ import java.util.Random;
 
 public class Complete implements Mutation {
 
-    private double criteria;
-
-    public Complete(double criteria) {
-        this.criteria = criteria;
-    }
-
     @Override
-<<<<<<< HEAD
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
-        int delta = (Integer) params.get("delta");
-=======
     public void mutate(Player player, ConfigParams configParams) {
->>>>>>> new begin big commit
         Random random = new Random();
         double probability = configParams.getMutationProb();
         if (probability > random.nextDouble()) {

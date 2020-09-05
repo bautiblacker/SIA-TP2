@@ -10,4 +10,9 @@ public class Height implements Allele {
     public Height(double value) {
         this.value = value;
     }
+
+    @Override
+    public void mutate() {
+
+    }
 }

@@ -3,7 +3,7 @@ package parsers;
 import crossover.CrossOver;
 import crossover.CrossOverMethodType;
 import exceptions.InvalidArgumentException;
-import implementations.Implementation;
+import implementations.ImplementationMethod;
 import implementations.ImplementationType;
 import models.Pair;
 import mutation.Mutation;
@@ -28,7 +28,7 @@ public class ConfigParser {
         Pair<Mutation, Double> mutationMethod;
         CrossOver crossOverMethod;
         List<Pair<SelectionMethod, Map<String, Object>>> methods;
-        Implementation implementation;
+        ImplementationType implementation;
         long population, select;
 
         try {
@@ -130,9 +130,9 @@ public class ConfigParser {
         return methods;
     }
 
-    private static Implementation getAndValidateImplementation(String implementation) throws InvalidArgumentException {
+    private static ImplementationType getAndValidateImplementation(String implementation) throws InvalidArgumentException {
         if(ImplementationType.contains(implementation)) {
-            return ImplementationType.getMethodInstance(ImplementationType.valueOf(implementation));
+            return ImplementationType.valueOf(implementation);
         }
 
         throw new InvalidArgumentException("Invalid implementation method:" + implementation);

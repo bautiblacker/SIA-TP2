@@ -50,6 +50,8 @@ public class Equipment implements Allele {
         return type;
     }
 
-    //TODO: OVERRIDE
-    //OVERRIDE MUTATION
+    @Override
+    public void mutate() {
+
+    }
 }

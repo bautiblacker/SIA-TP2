@@ -1,5 +1,11 @@
 package implementations;
 
+import models.ConfigParams;
+import newModels.Player;
+import selection.SelectionMethod;
+
+import java.util.List;
+
 public enum ImplementationType {
     FILLALL,
     FILLPARENTS;
@@ -11,18 +17,12 @@ public enum ImplementationType {
         return false;
     }
 
-    public static ImplementationMethod getMethodInstance(ImplementationType type) {
+    public static ImplementationMethod getMethodInstance(ImplementationType type, SelectionMethod selectionMethod) {
         switch (type) {
             case FILLALL:
-<<<<<<< HEAD
-                return new FillAll();
+                return new FillAll(selectionMethod);
             case FILLPARENTS:
-                return new FillParents();
-=======
-                return null;
-            case FILLPARENTS:
-                return null;
->>>>>>> new begin big commit
+                return new FillParent(selectionMethod);
         }
         return null;
     }

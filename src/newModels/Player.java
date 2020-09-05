@@ -10,7 +10,7 @@ public class Player implements Genotype {
     public Player(CharacterClass characterClass, List<Allele> characterAppearance) {
         this.characterClass = characterClass;
         this.characterAppearance = characterAppearance;
-        this.characterAttribute = new CharacterAttribute(characterAppearance);
+        this.characterAttribute = new CharacterAttribute(characterAppearance.subList(1,characterAppearance.size()-1));
     }
 
     public double getPerformance() {
