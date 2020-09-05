@@ -9,17 +9,16 @@ import java.util.Random;
 
 public class Roulette implements SelectionMethod {
 
-    public List<Player> select(List<Player> players, ConfigParams configParams) {
-        long selectionLimit = configParams.getSelectionLimit();
+    public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
         List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
         List<Player> selectedPlayers = new ArrayList<>();
         Random random = new Random();
         double r;
-        while (selectionLimit > 0) {
+        while (selectLimit > 0) {
             r = random.nextDouble();
             Player e = findPlayer(rouletteNodes, r);
             selectedPlayers.add(e);
-            selectionLimit--;
+            selectLimit--;
         }
         return selectedPlayers;
     }

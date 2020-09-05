@@ -7,7 +7,7 @@ import newModels.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ranking extends Roulette implements SelectionMethod {
+public class Ranking extends Roulette {
 
     @Override
     List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
