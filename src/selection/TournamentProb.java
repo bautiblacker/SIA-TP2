@@ -6,8 +6,8 @@ import java.util.*;
 public class TournamentProb extends Tournament implements SelectionMethod {
 
     @Override
-    public List<Player> select(List<Player> players, ConfigParams configParams) {
-        if (players.size() <= configParams.getSelectionLimit())
+    public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
+        if (players.size() <= selectLimit)
             return players;
 
         long sampleSize = 2;

@@ -9,15 +9,14 @@ import java.util.Random;
 
 public class Universal extends Roulette implements SelectionMethod {
     @Override
-    public List<Player> select(List<Player> players, ConfigParams configParams) {
-        long selectionLimit = configParams.getSelectionLimit();
+    public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
         List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
         List<Player> selectedItems = new ArrayList<>();
         Random random = new Random();
         int index = 0;
         double r = random.nextDouble();
-        while (index < selectionLimit) {
-            Player e = findPlayer(rouletteNodes, (r + index) / selectionLimit);
+        while (index < selectLimit) {
+            Player e = findPlayer(rouletteNodes, (r + index) / selectLimit);
             selectedItems.add(e);
             index++;
         }

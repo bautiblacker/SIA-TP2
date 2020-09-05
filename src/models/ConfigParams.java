@@ -1,7 +1,7 @@
 package models;
 
 import crossover.CrossOver;
-import implementations.Implementation;
+import implementations.ImplementationMethod;
 import mutation.Mutation;
 import selection.SelectionMethod;
 
@@ -13,7 +13,7 @@ public class ConfigParams {
     private Pair<CrossOver, Double> crossoverMethod;
     private double crossoverProb;
     private long generationNumber;
-    private Implementation implementation;
+    private ImplementationMethod implementationMethod;
     private long population;
     private long selectionLimit;
     private long tournamentM;
@@ -23,6 +23,66 @@ public class ConfigParams {
     private double boltzmannK;
     private double mutationProb;
     private  int mutationMultiGenM;
+
+    private int fitnessWithoutChange;
+    private double bestFitness;
+
+    /* TODO: Agregarlo al config Parser
+     * Content: El mejor fitness no cambia en una cantidad de generaciones
+     * Estructura: Una parte relevante de la población no cambia en una cantidad de generaciones
+     * */
+    private double startTime;
+    private double acceptedSolution;
+    private int contentLimit;
+    private double structureLimit;
+
+    public double getBestFitness() {
+        return bestFitness;
+    }
+
+    public void setBestFitness(double bestFitness) {
+        this.bestFitness = bestFitness;
+    }
+
+    public int getFitnessWithoutChange() {
+        return fitnessWithoutChange;
+    }
+
+    public void setFitnessWithoutChange(int fitnessWithoutChange) {
+        this.fitnessWithoutChange = fitnessWithoutChange;
+    }
+
+    public double getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(double startTime) {
+        this.startTime = startTime;
+    }
+
+    public double getAcceptedSolution() {
+        return acceptedSolution;
+    }
+
+    public void setAcceptedSolution(double acceptedSolution) {
+        this.acceptedSolution = acceptedSolution;
+    }
+
+    public int getContentLimit() {
+        return contentLimit;
+    }
+
+    public void setContentLimit(int contentLimit) {
+        this.contentLimit = contentLimit;
+    }
+
+    public double getStructureLimit() {
+        return structureLimit;
+    }
+
+    public void setStructureLimit(double structureLimit) {
+        this.structureLimit = structureLimit;
+    }
 
     public int getMutationMultiGenM() {
         return mutationMultiGenM;
@@ -60,12 +120,12 @@ public class ConfigParams {
         this.crossoverProb = crossoverProb;
     }
 
-    public Implementation getImplementation() {
-        return implementation;
+    public ImplementationMethod getImplementationMethod() {
+        return implementationMethod;
     }
 
-    public void setImplementation(Implementation implementation) {
-        this.implementation = implementation;
+    public void setImplementationMethod(ImplementationMethod implementationMethod) {
+        this.implementationMethod = implementationMethod;
     }
 
     public long getPopulation() {

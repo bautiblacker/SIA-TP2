@@ -1,11 +1,7 @@
 package mutation;
 
 import models.ConfigParams;
-import models.Equipment;
-import models.Property;
 import newModels.Player;
-
-import java.util.Map;
 import java.util.Random;
 
 public class Gen implements Mutation {

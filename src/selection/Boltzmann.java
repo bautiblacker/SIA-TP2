@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
-public class Boltzmann extends Roulette implements SelectionMethod {
+public class Boltzmann extends Roulette {
 
     @Override
     List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
