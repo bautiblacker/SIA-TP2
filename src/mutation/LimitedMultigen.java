@@ -1,22 +1,21 @@
 package mutation;
 
-import models.Equipment;
+import models.ConfigParams;
+import newModels.Player;
 
-import java.security.InvalidParameterException;
-import java.util.Map;
+import java.util.Random;
 
 public class LimitedMultigen implements Mutation {
 
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
-        if(params.get("M") != null) {
-            int M = (Integer) params.get("M");
-            Gen genMutation = new Gen();
-            Equipment newEq = null;
-            for(int i = 0; i < M; i++) {
-                newEq = genMutation.perform(eq, params);
+    public void mutate(Player player, ConfigParams configParams) {
+        int M = configParams.getMutationMultiGenM();
+        double probability = configParams.getMutationProb();
+        Random random = new Random();
+        int r = random.nextInt(M) + 1;
+        for (int i = 0; i < r; i++) {
+            if (probability > random.nextDouble()) {
+                player.getCharacterAppearance().get(random.nextInt(player.getCharacterAppearance().size())).mutate();
             }
-            return newEq == null ? eq : newEq;
         }
-        throw new InvalidParameterException();
     }
 }

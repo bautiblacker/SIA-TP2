@@ -4,9 +4,9 @@ public enum SelectionMethodType {
     ELITE(new Elite()),
     ROULETTE(new Roulette()),
     UNIVERSAL(new Universal()),
-    BOLTZMANN(null),
-    TOURNAMENTDET(null),
-    TOURNAMENTPROB(null),
+    BOLTZMANN(new Boltzmann()),
+    TOURNAMENTDET(new TournamentDet()),
+    TOURNAMENTPROB(new TournamentProb()),
     RANKING(new Ranking());
 
     private SelectionMethod selectionMethod;

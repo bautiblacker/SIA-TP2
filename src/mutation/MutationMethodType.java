@@ -1,6 +1,6 @@
 package mutation;
 
-public enum MutationMethodType {
+public enum  MutationMethodType {
     GEN(new Gen()),
     LIMITEDMULTIGEN(new LimitedMultigen()),
     UNIFORMMULTIGEN(new UniformMultigen()),

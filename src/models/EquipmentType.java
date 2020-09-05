@@ -1,11 +1,11 @@
 package models;
 
 public enum EquipmentType {
-    BOOT,
-    GLOVES,
     HELMET,
+    GLOVES,
     SHIRTFRONT,
-    WEAPON;
+    WEAPON,
+    BOOT;
 
     public boolean contains(String type){
         for(EquipmentType et : EquipmentType.values()){

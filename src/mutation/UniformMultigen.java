@@ -1,7 +1,10 @@
 package mutation;
 
+import models.ConfigParams;
 import models.Equipment;
 import models.Property;
+import newModels.Allele;
+import newModels.Player;
 
 import java.util.Map;
 import java.util.Random;
@@ -9,25 +12,13 @@ import java.util.Random;
 public class UniformMultigen implements Mutation {
 
     @Override
-    public Equipment perform(Equipment eq, Map<String, Object> params) {
+    public void mutate(Player player, ConfigParams configParams) {
         Random random = new Random();
-        int delta = (Integer) params.get("delta");
-        double prob;
-        Object classEq;
-        Equipment newEq = null;
-        try {
-            classEq = eq.getClass().newInstance();
-            newEq = (Equipment) classEq;
-            double criteria = (Double) params.get("criteria");
-            for(Property p : Property.values()) {
-                prob = random.nextDouble();
-                if(prob < criteria) {
-                    newEq.mutate(p, eq.getProperties().get(p) + delta);
-                }
+        double probability = configParams.getMutationProb();
+        for (int i = 0; i < player.getCharacterAppearance().size(); i++) {
+            if (probability > random.nextDouble()) {
+                player.getCharacterAppearance().get(i).mutate();
             }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
         }
-        return newEq == null ? eq : newEq;
     }
 }
