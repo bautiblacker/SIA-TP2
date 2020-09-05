@@ -1,10 +1,6 @@
 package implementations;
 
-import models.ConfigParams;
-import newModels.Player;
 import selection.SelectionMethod;
-
-import java.util.List;
 
 public enum ImplementationType {
     FILLALL,

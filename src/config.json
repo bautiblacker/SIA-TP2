@@ -1,21 +1,32 @@
 {
-  "selection_methods":[
-    {
-      "method": "elite",
-      "method_prob": 0.3
-    },{
-      "method": "ranking",
-      "method_prob": 0.3
-    },{
-      "method": "universal",
-      "method_prob": 0.4
-    }
-  ],
-  "crossover": "singlepoint",
+  "player_type": "WARRIOR",
+  "population": 20,
+  "select_limit": 10,
+
   "mutation": "complete",
   "mutation_prob": 0.5,
+
+  "crossover": "singlepoint",
+  "crossover_prob": 0.5,
+  "uniform_threshold": 0.3,
+
+  "selection_method_A": "elite",
+  "selection_method_B": "ranking",
+  "selection_method_prob": 0.3,
+
+  "replacement_method_A": "universal",
+  "replacement_method_B": "roulette",
+  "replacement_method_prob": 0.4,
+
+  "tournament_prob_threshold": 5,
+  "tournament_det_m": 5,
+
+  "boltzmannT0": 20,
+  "boltzmannTk": 5,
+
   "implementation": "fillall",
-  "population": 20,
-  "select": 10,
-  "tournament_m": 5
+
+  "criteria": "timeout",
+  "criteria_param": 10
+
 }

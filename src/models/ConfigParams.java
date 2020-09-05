@@ -2,18 +2,25 @@ package models;
 
 import crossover.CrossOver;
 import implementations.ImplementationMethod;
+import implementations.ImplementationType;
 import mutation.Mutation;
+import newModels.CharacterClass;
+import parsers.Parameters;
 import selection.SelectionMethod;
+import stopCriteria.StopCriteria;
 
 import java.util.List;
+import java.util.Map;
 
 public class ConfigParams {
-    private List<Pair<SelectionMethod, Double>> selectionMethods;
-    private Pair<Mutation, Double> mutationMethod;
-    private Pair<CrossOver, Double> crossoverMethod;
+    private Mutation mutationMethod;
+    private double mutationProb;
+
+    private CrossOver crossoverMethod;
     private double crossoverProb;
+
     private long generationNumber;
-    private ImplementationMethod implementationMethod;
+    private ImplementationType implementationType;
     private long population;
     private long selectionLimit;
     private long tournamentM;
@@ -21,8 +28,11 @@ public class ConfigParams {
     private double boltzmannT0;
     private double boltzmannTc;
     private double boltzmannK;
-    private double mutationProb;
     private  int mutationMultiGenM;
+    private CharacterClass playerClass;
+    private double uniformThreshold;
+
+    private Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods;
 
     private int fitnessWithoutChange;
     private double bestFitness;
@@ -35,6 +45,24 @@ public class ConfigParams {
     private double acceptedSolution;
     private int contentLimit;
     private double structureLimit;
+
+    private StopCriteria Criteria;
+
+    public CharacterClass getPlayerClass() {
+        return playerClass;
+    }
+
+    public void setPlayerClass(CharacterClass playerClass) {
+        this.playerClass = playerClass;
+    }
+
+    public double getUniformThreshold() {
+        return uniformThreshold;
+    }
+
+    public void setUniformThreshold(double uniformThreshold) {
+        this.uniformThreshold = uniformThreshold;
+    }
 
     public double getBestFitness() {
         return bestFitness;
@@ -88,28 +116,40 @@ public class ConfigParams {
         return mutationMultiGenM;
     }
 
-    public List<Pair<SelectionMethod, Double>> getSelectionMethods() {
+    public Map<Parameters, Pair<SelectionMethod, Double>> getSelectionMethods() {
         return selectionMethods;
     }
 
-    public void setSelectionMethods(List<Pair<SelectionMethod, Double>> selectionMethods) {
+    public void setSelectionMethods(Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods) {
         this.selectionMethods = selectionMethods;
     }
 
-    public Pair<Mutation, Double> getMutationMethod() {
+    public Mutation getMutationMethod() {
         return mutationMethod;
     }
 
-    public void setMutationMethod(Pair<Mutation, Double> mutationMethod) {
+    public void setMutationMethod(Mutation mutationMethod) {
         this.mutationMethod = mutationMethod;
     }
 
-    public Pair<CrossOver, Double> getCrossoverMethod() {
+    public void setMutationProb(double mutationProb) {
+        this.mutationProb = mutationProb;
+    }
+
+    public CrossOver getCrossoverMethod() {
         return crossoverMethod;
     }
 
-    public void setCrossoverMethod(Pair<CrossOver, Double> crossoverMethod) {
+    public void setCrossoverMethod(CrossOver crossoverMethod) {
         this.crossoverMethod = crossoverMethod;
+    }
+
+    public void setGenerationNumber(long generationNumber) {
+        this.generationNumber = generationNumber;
+    }
+
+    public void setMutationMultiGenM(int mutationMultiGenM) {
+        this.mutationMultiGenM = mutationMultiGenM;
     }
 
     public double getCrossoverProb() {
@@ -120,12 +160,12 @@ public class ConfigParams {
         this.crossoverProb = crossoverProb;
     }
 
-    public ImplementationMethod getImplementationMethod() {
-        return implementationMethod;
+    public ImplementationType getImplementationType() {
+        return implementationType;
     }
 
-    public void setImplementationMethod(ImplementationMethod implementationMethod) {
-        this.implementationMethod = implementationMethod;
+    public void setImplementationType(ImplementationType implementationType) {
+        this.implementationType = implementationType;
     }
 
     public long getPopulation() {
