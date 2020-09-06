@@ -18,7 +18,6 @@ public class Data {
     private double mutationProb;
     private CrossOver crossoverMethod;
     private double crossoverProb;
-
     private long generationNumber;
     private ImplementationType implementationType;
     private long population;
@@ -28,8 +27,8 @@ public class Data {
     private double boltzmannT0;
     private double boltzmannTc;
     private double boltzmannK;
-    private  int mutationMultiGenM;
     private CharacterClass playerClass;
+    private int mutationMultiGenM;
     private double uniformThreshold;
     private Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods;
     private StopCriteria Criteria;
