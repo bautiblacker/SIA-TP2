@@ -1,10 +1,10 @@
 package selection;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 import java.util.List;
 
 public interface SelectionMethod {
-    List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit);
+    List<Player> select(List<Player> players, Data data, long selectLimit);
 }

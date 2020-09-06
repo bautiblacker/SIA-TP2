@@ -1,6 +1,6 @@
 package implementations;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 import selection.SelectionMethod;
 
@@ -13,12 +13,12 @@ public class FillParent extends Implementation {
     }
 
     @Override
-    public List<Player> implement(List<Player> children, List<Player> parents, ConfigParams configParams) {
-        if(children.size() > configParams.getPopulation()) {
-            return getMethod().select(children, configParams, configParams.getPopulation());
+    public List<Player> implement(List<Player> children, List<Player> parents, Data data) {
+        if (children.size() > data.getPopulation()) {
+            return getMethod().select(children, data, data.getPopulation());
         }
 
-        children.addAll(getMethod().select(parents, configParams, (configParams.getPopulation() - children.size())));
+        children.addAll(getMethod().select(parents, data, (data.getPopulation() - children.size())));
         return children;
     }
 }

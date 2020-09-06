@@ -3,6 +3,7 @@ package models;
 import crossover.CrossOver;
 import implementations.ImplementationMethod;
 import implementations.ImplementationType;
+import models.Pair;
 import mutation.Mutation;
 import newModels.CharacterClass;
 import parsers.Parameters;
@@ -12,10 +13,9 @@ import stopCriteria.StopCriteria;
 import java.util.List;
 import java.util.Map;
 
-public class ConfigParams {
+public class Data {
     private Mutation mutationMethod;
     private double mutationProb;
-
     private CrossOver crossoverMethod;
     private double crossoverProb;
 
@@ -31,45 +31,24 @@ public class ConfigParams {
     private  int mutationMultiGenM;
     private CharacterClass playerClass;
     private double uniformThreshold;
-
     private Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods;
+    private StopCriteria Criteria;
 
-    private int fitnessWithoutChange;
-    private double bestFitness;
-
-    /* TODO: Agregarlo al config Parser
+    /*
      * Content: El mejor fitness no cambia en una cantidad de generaciones
      * Estructura: Una parte relevante de la población no cambia en una cantidad de generaciones
+     *
      * */
+    private long genCounter = 0;
     private double startTime;
     private double acceptedSolution;
     private int contentLimit;
     private double structureLimit;
+    private int fitnessWithoutChange;
+    private double bestFitness; // ??
 
-    private StopCriteria Criteria;
-
-    public StopCriteria getCriteria() {
-        return Criteria;
-    }
-
-    public void setCriteria(StopCriteria criteria) {
-        Criteria = criteria;
-    }
-
-    public CharacterClass getPlayerClass() {
-        return playerClass;
-    }
-
-    public void setPlayerClass(CharacterClass playerClass) {
-        this.playerClass = playerClass;
-    }
-
-    public double getUniformThreshold() {
-        return uniformThreshold;
-    }
-
-    public void setUniformThreshold(double uniformThreshold) {
-        this.uniformThreshold = uniformThreshold;
+    public void increaseGenCounter() {
+        this.genCounter += 1;
     }
 
     public double getBestFitness() {

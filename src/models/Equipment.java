@@ -3,8 +3,8 @@ package models;
 import java.util.Map;
 
 public interface Equipment {
-    Map<Property, Double> getProperties();
+    Map<Attribute, Double> getProperties();
     void setFitness(double newFitness);
     double getFitness();
-    void mutate(Property property, double value);
+    void mutate(Attribute attribute, double value);
 }

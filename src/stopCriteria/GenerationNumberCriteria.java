@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public class GenerationNumberCriteria implements StopCriteria {
 
@@ -11,7 +11,7 @@ public class GenerationNumberCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(ConfigParams configParams) {
-        return configParams.getGenerationNumber() >= generationLimit;
+    public boolean evaluate(Data data) {
+        return data.getGenerationNumber() >= generationLimit;
     }
 }

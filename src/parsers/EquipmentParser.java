@@ -1,6 +1,9 @@
 package parsers;
 
-import models.*;
+import models.EquipmentType;
+import models.Attribute;
+import newModels.Equipment;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
@@ -9,17 +12,13 @@ public class EquipmentParser {
     public static List<Equipment> equipmentParser(Reader reader, EquipmentType equipmentType) {
         List<Equipment> equipmentList = new ArrayList<>();
         try {
-            Set<Property> titles = titleParser(reader);
-            Map<Property, Double> values;
+            Set<Attribute> titles = titleParser(reader);
+            Map<Attribute, Double> values;
 
             do {
                 values = valuesParser(reader, titles);
-                Equipment equipment = getEquipment(values,equipmentType);
-                if(equipment == null){
-                    return null;
-                }
+                Equipment equipment = getEquipment(values, equipmentType);
                 equipmentList.add(equipment);
-
             } while (!values.isEmpty());
 
         } catch (Exception e) {
@@ -28,52 +27,38 @@ public class EquipmentParser {
         return equipmentList;
     }
 
-    private static Equipment getEquipment(Map<Property, Double> equipmentValues, EquipmentType type) {
-        switch(type){
-            case BOOT:
-                return new Boot(equipmentValues);
-            case GLOVES:
-                return new Gloves(equipmentValues);
-            case HELMET:
-                return new Helmet(equipmentValues);
-            case WEAPON:
-                return new Weapon(equipmentValues);
-            case SHIRTFRONT:
-                return new Shirtfront(equipmentValues);
-            default:
-                return null;
-        }
+    private static Equipment getEquipment(Map<Attribute, Double> equipmentValues, EquipmentType type) {
+        return new Equipment(equipmentValues, type);
     }
 
 
-
-    private static Set<Property> titleParser(Reader reader) throws IOException {
-        Set<Property> lineParsed = new LinkedHashSet<>();
+    private static Set<Attribute> titleParser(Reader reader) throws IOException {
+        Set<Attribute> lineParsed = new LinkedHashSet<>();
         StringBuilder value = new StringBuilder();
         int c;
-        while ((c = reader.read()) != '\n'){
-            if(c == '\t'){
-                lineParsed.add(Property.getProperty(value.toString()));
+        while ((c = reader.read()) != '\n') {
+            if (c == '\t') {
+                lineParsed.add(Attribute.getProperty(value.toString()));
                 value = new StringBuilder();
             } else {
                 value.append((char) c);
             }
         }
-        lineParsed.add(Property.getProperty(value.toString()));
+        lineParsed.add(Attribute.getProperty(value.toString()));
         return lineParsed;
     }
 
-    private static Map<Property, Double> valuesParser(Reader reader, Set<Property> titles) throws IOException {
+    private static Map<Attribute, Double> valuesParser(Reader reader, Set<Attribute> titles) throws IOException {
         int c;
-        Iterator<Property> iterator = titles.iterator();
-        Map<Property, Double> values = new LinkedHashMap<>();
+        Iterator<Attribute> iterator = titles.iterator();
+        Map<Attribute, Double> values = new LinkedHashMap<>();
         StringBuilder value = new StringBuilder();
-        Property title;
-        while ((c = reader.read()) != '\n'){
-            if(c == '\t'){
+        Attribute title;
+        while ((c = reader.read()) != '\n') {
+            if (c == '\t') {
                 title = iterator.next();
                 double valueDouble = Double.parseDouble(value.toString());
-                values.put(title,valueDouble);
+                values.put(title, valueDouble);
                 value = new StringBuilder();
             } else {
                 value.append((char) c);
@@ -81,9 +66,7 @@ public class EquipmentParser {
         }
         title = iterator.next();
         double valueDouble = Double.parseDouble(value.toString());
-        values.put(title,valueDouble);
+        values.put(title, valueDouble);
         return values;
     }
-
-
 }

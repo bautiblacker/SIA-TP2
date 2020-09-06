@@ -3,10 +3,10 @@ package models;
 import java.util.HashMap;
 import java.util.Map;
 
-import static models.Property.*;
+import static models.Attribute.*;
 
 public class EquipmentImpl implements Equipment, Comparable<Equipment> {
-    private Map<Property, Double> properties;
+    private Map<Attribute, Double> properties;
     private double fitness;
 
     EquipmentImpl() {
@@ -14,7 +14,7 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
     }
 
     EquipmentImpl(double strength, double agility, double expertise, double resistance, double life) {
-        Map<Property, Double> properties = new HashMap<>();
+        Map<Attribute, Double> properties = new HashMap<>();
         properties.put(STRENGTH, strength);
         properties.put(AGILITY, agility);
         properties.put(EXPERTISE, expertise);
@@ -23,25 +23,25 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         this.properties = properties;
         this.fitness = calculateFitness();
     }
-    public EquipmentImpl(Map<Property, Double> properties) {
+    public EquipmentImpl(Map<Attribute, Double> properties) {
         this.properties = properties;
         this.fitness = calculateFitness();
     }
 
     private double calculateFitness() {
         double result = 0;
-        for(Property p : properties.keySet()) {
+        for(Attribute p : properties.keySet()) {
             result += properties.get(p);
         }
         return result/properties.size();
     }
 
-    public void mutate(Property property, double value) {
-        this.properties.put(property, value);
+    public void mutate(Attribute attribute, double value) {
+        this.properties.put(attribute, value);
     }
 
     @Override
-    public Map<Property, Double> getProperties() {
+    public Map<Attribute, Double> getProperties() {
         return properties;
     }
 
@@ -50,7 +50,7 @@ public class EquipmentImpl implements Equipment, Comparable<Equipment> {
         StringBuilder sb = new StringBuilder();
         sb.append(this.getClass()).append('\n');
         sb.append("Fitness==> ").append(fitness).append('\n');
-        for(Property p : Property.values()) {
+        for(Attribute p : Attribute.values()) {
             sb.append(p.toString()).append(": ");
             sb.append(properties.get(p)).append('\n');
         }

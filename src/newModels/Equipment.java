@@ -1,6 +1,9 @@
 package newModels;
 
+import models.Attribute;
 import models.EquipmentType;
+
+import java.util.Map;
 
 public class Equipment implements Allele {
     final private long id;
@@ -19,6 +22,16 @@ public class Equipment implements Allele {
         this.expertise = expertise;
         this.resistance = resistance;
         this.life = life;
+        this.type = type;
+    }
+
+    public Equipment(Map<Attribute, Double> attributes, EquipmentType type) {
+        this.id = attributes.get(Attribute.ID).longValue();
+        this.strength = attributes.get(Attribute.STRENGTH);
+        this.agility = attributes.get(Attribute.AGILITY);
+        this.expertise = attributes.get(Attribute.EXPERTISE);
+        this.resistance = attributes.get(Attribute.RESISTANCE);
+        this.life = attributes.get(Attribute.LIFE);
         this.type = type;
     }
 

@@ -1,6 +1,6 @@
 package selection;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.OptionalDouble;
 public class Boltzmann extends Roulette {
 
     @Override
-    List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
-        double temperature = getTemperature(configParams.getBoltzmannT0(),
-                configParams.getBoltzmannTc(), configParams.getBoltzmannK(),
-                configParams.getGenerationNumber());
+    List<RouletteNode> getRouletteList(List<Player> players, Data data) {
+        double temperature = getTemperature(data.getBoltzmannT0(),
+                data.getBoltzmannTc(), data.getBoltzmannK(),
+                data.getGenerationNumber());
         List<RouletteNode> rouletteList = new ArrayList<>();
 
         OptionalDouble expAvgOpt =

@@ -1,8 +1,5 @@
 package crossover;
 
-import models.ConfigParams;
-import models.Equipment;
-import models.Property;
 import newModels.Player;
 
 public interface CrossOver {

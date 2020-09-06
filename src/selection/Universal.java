@@ -1,6 +1,6 @@
 package selection;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 import java.util.ArrayList;
@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class Universal extends Roulette implements SelectionMethod {
     @Override
-    public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
-        List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
+    public List<Player> select(List<Player> players, Data data, long selectLimit) {
+        List<RouletteNode> rouletteNodes = getRouletteList(players, data);
         List<Player> selectedItems = new ArrayList<>();
         Random random = new Random();
         int index = 0;

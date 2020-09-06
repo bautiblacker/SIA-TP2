@@ -7,7 +7,7 @@ public class Boot extends EquipmentImpl {
         super(strength, agility, expertise, resistance, life);
     }
 
-    public Boot(Map<Property, Double> properties){
+    public Boot(Map<Attribute, Double> properties){
         super(properties);
     }
 }

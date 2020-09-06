@@ -1,6 +1,6 @@
 package selection;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 import java.util.ArrayList;
@@ -9,12 +9,13 @@ import java.util.Random;
 
 public class Roulette implements SelectionMethod {
 
-    public List<Player> select(List<Player> players, ConfigParams configParams, long selectLimit) {
-        List<RouletteNode> rouletteNodes = getRouletteList(players, configParams);
-        System.out.println(rouletteNodes);
+
+    public List<Player> select(List<Player> players, Data data, long selectLimit) {
+        List<RouletteNode> rouletteNodes = getRouletteList(players, data);
         List<Player> selectedPlayers = new ArrayList<>();
         Random random = new Random();
         double r;
+        System.out.println(rouletteNodes.toString());
         while (selectLimit > 0) {
             r = random.nextDouble();
             System.out.println("R ----> " + r);
@@ -25,7 +26,7 @@ public class Roulette implements SelectionMethod {
         return selectedPlayers;
     }
 
-    List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
+    List<RouletteNode> getRouletteList(List<Player> players, Data data) {
         double totalFitness = getTotalFitness(players);
         double prevCumulativeFitness = 0;
         List<RouletteNode> rouletteList = new ArrayList<>();
@@ -51,7 +52,7 @@ public class Roulette implements SelectionMethod {
     Player findPlayer(List<RouletteNode> players, double r) {
         int start = 0, end = players.size() - 1, middle;
 
-        if(players.get(0).performance > r) {
+        if (players.get(0).performance > r) {
             return players.get(0).player;
         }
 

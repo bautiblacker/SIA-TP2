@@ -8,7 +8,7 @@ public class Shirtfront extends EquipmentImpl{
         super(strength, agility, expertise, resistance, life);
     }
 
-    public Shirtfront(Map<Property, Double> properties){
+    public Shirtfront(Map<Attribute, Double> properties){
         super(properties);
     }
 }

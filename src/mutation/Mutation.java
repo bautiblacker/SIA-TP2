@@ -1,8 +1,8 @@
 package mutation;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 public interface Mutation {
-    void mutate(Player player, ConfigParams configParams);
+    void mutate(Player player, Data data);
 }

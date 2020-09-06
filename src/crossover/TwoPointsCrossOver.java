@@ -1,9 +1,5 @@
 package crossover;
 
-import models.ConfigParams;
-import models.Equipment;
-import models.EquipmentImpl;
-import models.Property;
 import newModels.Allele;
 import newModels.Player;
 
@@ -28,7 +24,7 @@ public class TwoPointsCrossOver implements CrossOver {
             Allele equipmentP1 = p1.getCharacterAppearance().get(i);
             Allele equipmentP2 = p2.getCharacterAppearance().get(i);
 
-            if (i >= locus.get(0) && i<= locus.get(1)) {
+            if (i >= locus.get(0) && i <= locus.get(1)) {
                 characterOneAppearance.add(equipmentP2);
                 characterTwoAppearance.add(equipmentP1);
             } else {

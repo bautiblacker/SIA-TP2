@@ -1,10 +1,10 @@
 package implementations;
 
-import models.ConfigParams;
+import models.Data;
 import newModels.Player;
 
 import java.util.List;
 
 public interface ImplementationMethod {
-    List<Player> implement(List<Player> children, List<Player> parents, ConfigParams configParams);
+    List<Player> implement(List<Player> children, List<Player> parents, Data data);
 }

@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static models.Property.*;
+import static models.Attribute.*;
 
 public class Character implements  Comparable<Character>{
     private Class characterClass;
     private double height;
     private List<Equipment> equipment;
-    private Map<Property, Double> properties;
+    private Map<Attribute, Double> properties;
     private double attackPerformance;
     private double defensePerformance;
 
@@ -32,7 +32,7 @@ public class Character implements  Comparable<Character>{
         return equipment;
     }
 
-    public Map<Property, Double> getProperties() {
+    public Map<Attribute, Double> getProperties() {
         return properties;
     }
 
@@ -40,15 +40,15 @@ public class Character implements  Comparable<Character>{
         return characterClass;
     }
 
-    private Map<Property, Double> calculateProperties() {
-        Map<Property, Double> properties = new HashMap<>();
+    private Map<Attribute, Double> calculateProperties() {
+        Map<Attribute, Double> properties = new HashMap<>();
         double result;
-        for(Property property : Property.values()) {
+        for(Attribute attribute : Attribute.values()) {
             result = 0;
             for(Equipment eq : equipment) {
-                result += property.getMultiplier()*eq.getProperties().get(property);
+                result += attribute.getMultiplier()*eq.getProperties().get(attribute);
             }
-            properties.put(property, result);
+            properties.put(attribute, result);
         }
         return properties;
     }

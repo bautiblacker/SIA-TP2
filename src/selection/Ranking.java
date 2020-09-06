@@ -1,6 +1,6 @@
 package selection;
 
-import models.ConfigParams;
+import models.Data;
 
 import newModels.Player;
 
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Ranking extends Roulette {
 
     @Override
-    List<RouletteNode> getRouletteList(List<Player> players, ConfigParams configParams) {
+    List<RouletteNode> getRouletteList(List<Player> players, Data data) {
         double totalFitness = getTotalFitness(players);
         double prevCumulativeFitness = 0;
         List<RouletteNode> rouletteList = new ArrayList<>();

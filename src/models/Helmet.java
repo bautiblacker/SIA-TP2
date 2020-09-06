@@ -8,7 +8,7 @@ public class Helmet extends EquipmentImpl{
         super(strength, agility, expertise, resistance, life);
     }
 
-    public Helmet(Map<Property, Double> properties){
+    public Helmet(Map<Attribute, Double> properties){
         super(properties);
     }
 }

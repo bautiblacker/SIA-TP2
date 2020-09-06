@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public class ContentCriteria implements StopCriteria {
 
@@ -11,7 +11,7 @@ public class ContentCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(ConfigParams configParams) {
-        return generationNumber - configParams.getFitnessWithoutChange() <= 0;
+    public boolean evaluate(Data data) {
+        return generationNumber - data.getFitnessWithoutChange() <= 0;
     }
 }

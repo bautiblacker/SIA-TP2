@@ -8,7 +8,7 @@ public class Gloves extends EquipmentImpl {
         super(strength, agility, expertise, resistance, life);
     }
 
-    public Gloves(Map<Property, Double> properties){
+    public Gloves(Map<Attribute, Double> properties){
         super(properties);
     }
 }

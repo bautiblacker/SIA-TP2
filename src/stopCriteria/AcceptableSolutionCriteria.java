@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public class AcceptableSolutionCriteria implements StopCriteria {
 
@@ -11,7 +11,7 @@ public class AcceptableSolutionCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(ConfigParams configParams) {
-        return configParams.getBestFitness() >= limitFitness;
+    public boolean evaluate(Data data) {
+        return data.getBestFitness() >= limitFitness;
     }
 }

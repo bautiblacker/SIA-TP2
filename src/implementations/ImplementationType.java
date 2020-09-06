@@ -7,8 +7,8 @@ public enum ImplementationType {
     FILLPARENTS;
 
     public static boolean contains(String type) {
-        for(ImplementationType i : ImplementationType.values()) {
-            if(i.name().equals(type)) return true;
+        for (ImplementationType i : ImplementationType.values()) {
+            if (i.name().equals(type)) return true;
         }
         return false;
     }

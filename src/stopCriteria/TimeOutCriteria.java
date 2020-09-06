@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public class TimeOutCriteria implements StopCriteria {
 
@@ -11,7 +11,7 @@ public class TimeOutCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(ConfigParams configParams) {
-        return System.currentTimeMillis() - configParams.getStartTime() >= timeout;
+    public boolean evaluate(Data data) {
+        return System.currentTimeMillis() - data.getStartTime() >= timeout;
     }
 }

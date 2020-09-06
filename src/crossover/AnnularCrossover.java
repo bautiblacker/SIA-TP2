@@ -1,8 +1,5 @@
 package crossover;
 
-import models.ConfigParams;
-import models.Equipment;
-import models.Property;
 import newModels.Allele;
 import newModels.Player;
 
@@ -36,7 +33,6 @@ public class AnnularCrossover implements CrossOver {
                 j++;
             }
         }
-
         Player childOne = new Player(p1.getCharacterClass(), characterOneAppearance);
         Player childTwo = new Player(p2.getCharacterClass(), characterTwoAppearance);
         return new Player[]{childOne, childTwo};

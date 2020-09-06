@@ -1,7 +1,7 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public interface StopCriteria {
-    boolean evaluate(ConfigParams configParams);
+    boolean evaluate(Data data);
 }

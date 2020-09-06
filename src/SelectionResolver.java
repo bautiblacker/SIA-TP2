@@ -1,13 +1,16 @@
+<<<<<<< HEAD
 import models.ConfigParams;
 import models.Equipment;
+=======
+>>>>>>> equipment parser and attributes fixed
 import models.EquipmentType;
+import newModels.Equipment;
 import org.json.simple.parser.JSONParser;
 import parsers.ConfigParser;
 import parsers.EquipmentParser;
 
 import java.io.FileReader;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +25,13 @@ public class SelectionResolver {
             ConfigParams configParams = ConfigParser.parse(configPath);
             List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private static EquipmentType equipmentTypeByFileName(String filePath){
-        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1,filePath.lastIndexOf(".")).toUpperCase();
+    private static EquipmentType equipmentTypeByFileName(String filePath) {
+        String fileName = filePath.substring(filePath.lastIndexOf("/") + 1, filePath.lastIndexOf(".")).toUpperCase();
         switch (fileName) {
             case "ARMAS":
                 return EquipmentType.WEAPON;

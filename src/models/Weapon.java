@@ -8,7 +8,7 @@ public class Weapon extends EquipmentImpl {
         super(strength, agility, expertise, resistance, life);
     }
 
-    public Weapon(Map<Property, Double> properties){
+    public Weapon(Map<Attribute, Double> properties){
         super(properties);
     }
 }

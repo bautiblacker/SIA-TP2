@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class UniformCrossover implements CrossOver{
+public class UniformCrossover implements CrossOver {
 
     @Override
     public Player[] cross(Player p1, Player p2) {

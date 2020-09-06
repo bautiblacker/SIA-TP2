@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import models.ConfigParams;
+import models.Data;
 
 public class StructureCriteria implements StopCriteria {
 
@@ -11,7 +11,7 @@ public class StructureCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(ConfigParams configParams) {
+    public boolean evaluate(Data data) {
         return false;
     }
 }
