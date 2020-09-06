@@ -1,7 +1,7 @@
 package parsers;
 
 import exceptions.InvalidArgumentException;
-import models.ConfigParams;
+import models.Data;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,10 +13,10 @@ import java.io.Reader;
 import static parsers.Parameters.*;
 
 public class ConfigParser {
-    public static ConfigParams parse(String path) {
+    public static Data parse(String path) {
         JSONParser parser = new JSONParser();
         Reader configReader;
-        ConfigParams configParams = new ConfigParams();
+        Data data = new Data();
 
         try {
             configReader = new FileReader(path);
@@ -24,40 +24,40 @@ public class ConfigParser {
 
             // Player class
             String playerClass = (String) json.get(PLAYER_TYPE.name());
-            Validate.getAndValidatePlayer(configParams, playerClass.toUpperCase());
+            Validate.getAndValidatePlayer(data, playerClass.toUpperCase());
 
             // Population and selectLimit
             Long populationValue = (Long) json.get(POPULATION.name());
             Long selectLimit = (Long) json.get(SELECTION_LIMIT.name());
-            Validate.validatePopulationAndSelect(configParams, populationValue, selectLimit);
+            Validate.validatePopulationAndSelect(data, populationValue, selectLimit);
 
             // Mutation method validation
             String mutationName= (String) json.get(MUTATION.name());
             Double mutationProbValue = (Double) json.get(MUTATION_PROB.name());
-            Validate.getAndValidateMutation(configParams, mutationName.toUpperCase(), mutationProbValue);
+            Validate.getAndValidateMutation(data, mutationName.toUpperCase(), mutationProbValue);
 
             //  Crossover method validation
             String crossoverName = (String) json.get(CROSSOVER.name());
             Double crossoverProbValue = (Double) json.get(CROSSOVER_PROB.name());
-            Validate.getAndValidateCrossover(configParams, crossoverName.toUpperCase(), crossoverProbValue);
+            Validate.getAndValidateCrossover(data, crossoverName.toUpperCase(), crossoverProbValue);
             //  uniformThresholdValue = Validate.getAndValidateThreshold(crossoverName,  (Double) json.get(UNIFORM_THRESHOLD));
 
             // Validate and get selection and replacement methods
-            Validate.getAndValidateSelectionMethods(configParams, json);
+            Validate.getAndValidateSelectionMethods(data, json);
 
             // Implementation method validation
             String implementationName = (String) json.get(IMPLEMENTATION_METHOD.name());
-            Validate.getAndValidateImplementation(configParams, implementationName.toUpperCase());
+            Validate.getAndValidateImplementation(data, implementationName.toUpperCase());
 
             String stopCriteria = (String) json.get(CRITERIA.name());
             Number param = (Number) json.get(CRITERIA_PARAM.name());
-            Validate.getAndValidateCriteria(configParams, stopCriteria.toUpperCase(), param);
+            Validate.getAndValidateCriteria(data, stopCriteria.toUpperCase(), param);
 
         } catch (IOException | ParseException | InvalidArgumentException e) {
             System.out.println(e.getMessage());
             return null;
         }
-        return configParams;
+        return data;
 
     }
 }

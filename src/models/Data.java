@@ -1,11 +1,10 @@
 package models;
 
 import crossover.CrossOver;
-import implementations.ImplementationMethod;
 import implementations.ImplementationType;
-import models.Pair;
 import mutation.Mutation;
 import newModels.CharacterClass;
+import newModels.Player;
 import parsers.Parameters;
 import selection.SelectionMethod;
 import stopCriteria.StopCriteria;
@@ -18,8 +17,7 @@ public class Data {
     private double mutationProb;
     private CrossOver crossoverMethod;
     private double crossoverProb;
-    private long generationNumber;
-    private ImplementationType implementationType;
+    private Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods;
     private long population;
     private long selectionLimit;
     private long tournamentM;
@@ -27,27 +25,73 @@ public class Data {
     private double boltzmannT0;
     private double boltzmannTc;
     private double boltzmannK;
+    private ImplementationType implementationType;
     private CharacterClass playerClass;
     private int mutationMultiGenM;
     private double uniformThreshold;
-    private Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods;
     private StopCriteria Criteria;
 
-    /*
-     * Content: El mejor fitness no cambia en una cantidad de generaciones
-     * Estructura: Una parte relevante de la población no cambia en una cantidad de generaciones
-     *
-     * */
-    private long genCounter = 0;
+    private long genCounter;
     private double startTime;
-    private double acceptedSolution;
-    private int contentLimit;
-    private double structureLimit;
-    private int fitnessWithoutChange;
-    private double bestFitness; // ??
+    private int criteriaCounter;
+    private double bestFitness;
+
+    private List<Player> prevGeneration;
+    private List<Player> currentGeneration;
 
     public void increaseGenCounter() {
         this.genCounter += 1;
+    }
+
+    public long getGenNumber() {
+        return genCounter;
+    }
+
+    public List<Player> getPrevGeneration() {
+        return prevGeneration;
+    }
+
+    public void setPrevGeneration(List<Player> prevGeneration) {
+        this.prevGeneration = prevGeneration;
+    }
+
+    public List<Player> getCurrentGeneration() {
+        return currentGeneration;
+    }
+
+    public void setCurrentGeneration(List<Player> currentGeneration) {
+        this.currentGeneration = currentGeneration;
+    }
+
+    public void setCriteriaCounter(int criteriaCounter) {
+        this.criteriaCounter = criteriaCounter;
+    }
+
+
+    /***************************/
+
+    public StopCriteria getCriteria() {
+        return Criteria;
+    }
+
+    public void setCriteria(StopCriteria criteria) {
+        Criteria = criteria;
+    }
+
+    public CharacterClass getPlayerClass() {
+        return playerClass;
+    }
+
+    public void setPlayerClass(CharacterClass playerClass) {
+        this.playerClass = playerClass;
+    }
+
+    public double getUniformThreshold() {
+        return uniformThreshold;
+    }
+
+    public void setUniformThreshold(double uniformThreshold) {
+        this.uniformThreshold = uniformThreshold;
     }
 
     public double getBestFitness() {
@@ -58,12 +102,8 @@ public class Data {
         this.bestFitness = bestFitness;
     }
 
-    public int getFitnessWithoutChange() {
-        return fitnessWithoutChange;
-    }
-
-    public void setFitnessWithoutChange(int fitnessWithoutChange) {
-        this.fitnessWithoutChange = fitnessWithoutChange;
+    public int getCriteriaCounter() {
+        return criteriaCounter;
     }
 
     public double getStartTime() {
@@ -72,30 +112,6 @@ public class Data {
 
     public void setStartTime(double startTime) {
         this.startTime = startTime;
-    }
-
-    public double getAcceptedSolution() {
-        return acceptedSolution;
-    }
-
-    public void setAcceptedSolution(double acceptedSolution) {
-        this.acceptedSolution = acceptedSolution;
-    }
-
-    public int getContentLimit() {
-        return contentLimit;
-    }
-
-    public void setContentLimit(int contentLimit) {
-        this.contentLimit = contentLimit;
-    }
-
-    public double getStructureLimit() {
-        return structureLimit;
-    }
-
-    public void setStructureLimit(double structureLimit) {
-        this.structureLimit = structureLimit;
     }
 
     public int getMutationMultiGenM() {
@@ -130,10 +146,6 @@ public class Data {
         this.crossoverMethod = crossoverMethod;
     }
 
-    public void setGenerationNumber(long generationNumber) {
-        this.generationNumber = generationNumber;
-    }
-
     public void setMutationMultiGenM(int mutationMultiGenM) {
         this.mutationMultiGenM = mutationMultiGenM;
     }
@@ -160,10 +172,6 @@ public class Data {
 
     public void setPopulation(long population) {
         this.population = population;
-    }
-
-    public long getGenerationNumber() {
-        return generationNumber;
     }
 
     public long getSelectionLimit() {
@@ -216,5 +224,29 @@ public class Data {
 
     public double getMutationProb() {
         return mutationProb;
+    }
+
+    public SelectionMethod getSelectionMethodA() {
+        return selectionMethods.get(Parameters.SELECTION_METHOD_A).getKey();
+    }
+
+    public SelectionMethod getSelectionMethodB() {
+        return selectionMethods.get(Parameters.SELECTION_METHOD_B).getKey();
+    }
+
+    public SelectionMethod getReplacementMethodA() {
+        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_A).getKey();
+    }
+
+    public SelectionMethod getReplacementMethodB() {
+        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getKey();
+    }
+
+    public Double getSelectionMethodProb() {
+        return selectionMethods.get(Parameters.SELECTION_METHOD_A).getValue();
+    }
+
+    public Double getReplacementMethodProb() {
+        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getValue();
     }
 }

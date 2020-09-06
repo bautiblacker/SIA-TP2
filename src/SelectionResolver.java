@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import models.ConfigParams;
-import models.Equipment;
-=======
->>>>>>> equipment parser and attributes fixed
+import models.Data;
 import models.EquipmentType;
 import newModels.Equipment;
 import org.json.simple.parser.JSONParser;
@@ -22,7 +18,7 @@ public class SelectionResolver {
         try {
             Reader reader = new FileReader(filePath);
             EquipmentType equipmentType = equipmentTypeByFileName(filePath);
-            ConfigParams configParams = ConfigParser.parse(configPath);
+            Data data = ConfigParser.parse(configPath);
             List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType);
 
         } catch (Exception e) {

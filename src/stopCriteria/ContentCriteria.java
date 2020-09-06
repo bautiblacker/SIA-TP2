@@ -12,6 +12,6 @@ public class ContentCriteria implements StopCriteria {
 
     @Override
     public boolean evaluate(Data data) {
-        return generationNumber - data.getFitnessWithoutChange() <= 0;
+        return generationNumber - data.getCriteriaCounter() <= 0;
     }
 }

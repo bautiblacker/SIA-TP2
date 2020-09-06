@@ -13,7 +13,7 @@ public class Boltzmann extends Roulette {
     List<RouletteNode> getRouletteList(List<Player> players, Data data) {
         double temperature = getTemperature(data.getBoltzmannT0(),
                 data.getBoltzmannTc(), data.getBoltzmannK(),
-                data.getGenerationNumber());
+                data.getGenNumber());
         List<RouletteNode> rouletteList = new ArrayList<>();
 
         OptionalDouble expAvgOpt =

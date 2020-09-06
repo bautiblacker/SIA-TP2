@@ -98,8 +98,8 @@ public class Test {
         data.setBoltzmannTc(10);
         data.setBoltzmannK(1.38064852 * Math.pow(10, -23));
         data.setPopulation(5);
-        TournamentDet roullete = new TournamentDet();
-        List<Player> ans = roullete.select(players, data, data.getPopulation());
+        Ranking roullete = new Ranking();
+        List<Player> ans = roullete.select(players, data, data.getSelectionLimit());
         System.out.println("ANS -->");
         for (Player player : ans) {
             System.out.println(player.getPerformance());
