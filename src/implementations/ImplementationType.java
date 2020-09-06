@@ -13,12 +13,12 @@ public enum ImplementationType {
         return false;
     }
 
-    public static ImplementationMethod getMethodInstance(ImplementationType type, SelectionMethod selectionMethod) {
+    public static ImplementationMethod getMethodInstance(ImplementationType type) {
         switch (type) {
             case FILLALL:
-                return new FillAll(selectionMethod);
+                return new FillAll();
             case FILLPARENTS:
-                return new FillParent(selectionMethod);
+                return new FillParent();
         }
         return null;
     }

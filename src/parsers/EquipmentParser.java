@@ -9,15 +9,18 @@ import java.io.Reader;
 import java.util.*;
 
 public class EquipmentParser {
-    public static List<Equipment> equipmentParser(Reader reader, EquipmentType equipmentType) {
+    public static List<Equipment> equipmentParser(Reader reader, EquipmentType equipmentType, long number) {
         List<Equipment> equipmentList = new ArrayList<>();
         try {
             Set<Attribute> titles = titleParser(reader);
             Map<Attribute, Double> values;
 
             do {
-                values = valuesParser(reader, titles);
-                Equipment equipment = getEquipment(values, equipmentType);
+                values = valuesParser(reader, titles, number);
+                Equipment equipment = getEquipment(values,equipmentType);
+                if(equipment == null){
+                    return null;
+                }
                 equipmentList.add(equipment);
             } while (!values.isEmpty());
 
@@ -48,18 +51,22 @@ public class EquipmentParser {
         return lineParsed;
     }
 
-    private static Map<Attribute, Double> valuesParser(Reader reader, Set<Attribute> titles) throws IOException {
+    private static Map<Attribute, Double> valuesParser(Reader reader, Set<Attribute> titles, long number) throws IOException {
         int c;
         Iterator<Attribute> iterator = titles.iterator();
         Map<Attribute, Double> values = new LinkedHashMap<>();
         StringBuilder value = new StringBuilder();
         Attribute title;
+        Random random = new Random();
+        long multiple = random.nextLong(); // TODO: setear limite
+        long counter = 0;
         while ((c = reader.read()) != '\n') {
             if (c == '\t') {
                 title = iterator.next();
                 double valueDouble = Double.parseDouble(value.toString());
-                values.put(title, valueDouble);
+                if(counter % multiple == 0) values.put(title,valueDouble);
                 value = new StringBuilder();
+                counter++;
             } else {
                 value.append((char) c);
             }

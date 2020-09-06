@@ -1,7 +1,5 @@
 package stopCriteria;
 
-import models.Data;
-
 public class StructureCriteria implements StopCriteria {
 
     private int value;

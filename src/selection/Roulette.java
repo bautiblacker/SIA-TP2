@@ -1,6 +1,5 @@
 package selection;
 
-import models.Data;
 import newModels.Player;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Roulette implements SelectionMethod {
-
 
     public List<Player> select(List<Player> players, Data data, long selectLimit) {
         List<RouletteNode> rouletteNodes = getRouletteList(players, data);

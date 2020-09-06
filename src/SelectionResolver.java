@@ -1,4 +1,3 @@
-import models.Data;
 import models.EquipmentType;
 import newModels.Equipment;
 import org.json.simple.parser.JSONParser;
@@ -7,6 +6,8 @@ import parsers.EquipmentParser;
 
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +16,19 @@ public class SelectionResolver {
         JSONParser parser = new JSONParser();
         String filePath = args[0];
         String configPath = args[1];
+        Map<EquipmentType, List<Equipment>> equipments = new HashMap<>();
         try {
+            // deberia ser un while
             Reader reader = new FileReader(filePath);
             EquipmentType equipmentType = equipmentTypeByFileName(filePath);
             Data data = ConfigParser.parse(configPath);
-            List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType);
+
+            List<Equipment> equipmentList = EquipmentParser.equipmentParser(reader, equipmentType, data.getPopulation());
+            equipments.put(equipmentType, equipmentList);
+
+            // llamar a PreEngine -> devuelve lista de players <== population
+
+            // llamar a engine
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

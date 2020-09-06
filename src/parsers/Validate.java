@@ -4,7 +4,6 @@ import crossover.CrossOver;
 import crossover.CrossOverMethodType;
 import exceptions.InvalidArgumentException;
 import implementations.ImplementationType;
-import models.Data;
 import models.Pair;
 import mutation.Mutation;
 import mutation.MutationMethodType;

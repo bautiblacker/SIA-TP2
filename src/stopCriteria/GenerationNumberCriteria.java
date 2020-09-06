@@ -1,7 +1,5 @@
 package stopCriteria;
 
-import models.Data;
-
 public class GenerationNumberCriteria implements StopCriteria {
 
     private int generationLimit;

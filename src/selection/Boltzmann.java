@@ -1,6 +1,6 @@
 package selection;
 
-import models.Data;
+import newModels.Data;
 import newModels.Player;
 
 import java.util.ArrayList;

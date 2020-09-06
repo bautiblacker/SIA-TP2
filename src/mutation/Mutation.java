@@ -1,6 +1,6 @@
 package mutation;
 
-import models.Data;
+import newModels.Data;
 import newModels.Player;
 
 public interface Mutation {
