@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
-public class EquipmentParser {
+public class EquipmentFileParser {
     public static List<Equipment> equipmentParser(Reader reader, EquipmentType equipmentType, long equipmentsNumber,
                                                   int fileLines) {
         List<Equipment> equipmentList = new ArrayList<>();
