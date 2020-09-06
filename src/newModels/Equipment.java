@@ -2,17 +2,18 @@ package newModels;
 
 import models.Attribute;
 import models.EquipmentType;
+import java.util.Random;
 
 import java.util.Map;
 
 public class Equipment implements Allele {
-    final private long id;
-    final private double strength;
-    final private double agility;
-    final private double expertise;
-    final private double resistance;
-    final private double life;
-    final private EquipmentType type;
+    private long id;
+    private double strength;
+    private double agility;
+    private double expertise;
+    private double resistance;
+    private double life;
+    private EquipmentType type;
 
     public Equipment(long id, double strength, double agility, double expertise, double resistance, double life,
                      EquipmentType type) {
@@ -65,6 +66,11 @@ public class Equipment implements Allele {
 
     @Override
     public void mutate() {
-
+        Random random = new Random();
+        this.strength += (2 * random.nextDouble() - 1);
+        this.agility += (2 * random.nextDouble() - 1);
+        this.expertise += (2 * random.nextDouble() - 1);
+        this.life += (2 * random.nextDouble() - 1);
+        this.resistance += (2 * random.nextDouble() - 1);
     }
 }
