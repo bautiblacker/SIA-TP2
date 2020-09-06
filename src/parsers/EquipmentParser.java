@@ -16,7 +16,7 @@ public class EquipmentParser {
             Map<Attribute, Double> values;
 
             do {
-                values = valuesParser(reader, titles, number);
+                values = valuesParser(reader, titles);
                 Equipment equipment = getEquipment(values,equipmentType);
                 if(equipment == null){
                     return null;
@@ -51,22 +51,18 @@ public class EquipmentParser {
         return lineParsed;
     }
 
-    private static Map<Attribute, Double> valuesParser(Reader reader, Set<Attribute> titles, long number) throws IOException {
+    private static Map<Attribute, Double> valuesParser(Reader reader, Set<Attribute> titles) throws IOException {
         int c;
         Iterator<Attribute> iterator = titles.iterator();
         Map<Attribute, Double> values = new LinkedHashMap<>();
         StringBuilder value = new StringBuilder();
         Attribute title;
-        Random random = new Random();
-        long multiple = random.nextLong(); // TODO: setear limite
-        long counter = 0;
         while ((c = reader.read()) != '\n') {
             if (c == '\t') {
                 title = iterator.next();
                 double valueDouble = Double.parseDouble(value.toString());
-                if(counter % multiple == 0) values.put(title,valueDouble);
+                values.put(title,valueDouble);
                 value = new StringBuilder();
-                counter++;
             } else {
                 value.append((char) c);
             }

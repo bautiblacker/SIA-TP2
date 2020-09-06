@@ -4,11 +4,8 @@ import crossover.CrossOver;
 import implementations.ImplementationType;
 import models.Pair;
 import mutation.Mutation;
-<<<<<<< HEAD
 import newModels.CharacterClass;
 import newModels.Player;
-=======
->>>>>>> Stop Criteria added to engine and parser
 import parsers.Parameters;
 import selection.SelectionMethod;
 import stopCriteria.StopCriteria;

@@ -1,5 +1,7 @@
 package stopCriteria;
 
+import newModels.Data;
+
 public class AcceptableSolutionCriteria implements StopCriteria {
 
     private double limitFitness;

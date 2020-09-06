@@ -1,5 +1,7 @@
 package stopCriteria;
 
+import newModels.Data;
+
 public class TimeOutCriteria implements StopCriteria {
 
     private double timeout;
