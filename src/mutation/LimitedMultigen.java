@@ -1,8 +1,8 @@
 package mutation;
 
 
-import newModels.Data;
-import newModels.Player;
+import models.Data;
+import models.Player;
 
 import java.util.Random;
 

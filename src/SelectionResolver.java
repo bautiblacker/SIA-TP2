@@ -1,13 +1,7 @@
 import models.EquipmentType;
-import newModels.Equipment;
-import engine.Engine;
-import engine.PreEngine;
-import newModels.Data;
-import models.EquipmentType;
-import newModels.Equipment;
-import newModels.Player;
+import models.Equipment;
+import models.Player;
 import org.json.simple.parser.JSONParser;
-import parsers.ConfigParser;
 import parsers.EquipmentParser;
 import parsers.FileParser;
 

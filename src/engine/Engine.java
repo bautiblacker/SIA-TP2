@@ -2,8 +2,8 @@ package engine;
 
 import implementations.ImplementationMethod;
 import implementations.ImplementationType;
-import newModels.Data;
-import newModels.Player;
+import models.Data;
+import models.Player;
 import selection.SelectionMethod;
 import stopCriteria.StopCriteria;
 

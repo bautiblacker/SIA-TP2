@@ -1,6 +1,6 @@
 package selection;
 
-import newModels.Player;
+import models.Player;
 
 class RouletteNode {
     Player player;

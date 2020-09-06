@@ -1,7 +1,7 @@
 package implementations;
 
-import newModels.Data;
-import newModels.Player;
+import models.Data;
+import models.Player;
 import selection.SelectionMethod;
 
 import java.util.List;

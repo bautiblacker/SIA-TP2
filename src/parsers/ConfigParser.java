@@ -1,7 +1,7 @@
 package parsers;
 
 import exceptions.InvalidArgumentException;
-import newModels.Data;
+import models.Data;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

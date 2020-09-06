@@ -1,4 +1,4 @@
-package newModels;
+package models;
 
 public enum CharacterClass{
     ARCHER(0.9, 0.1),

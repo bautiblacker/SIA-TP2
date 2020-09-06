@@ -1,7 +1,7 @@
 package engine;
 
-import models.EquipmentType;
-import newModels.*;
+import models.*;
+import models.Equipment;
 
 import java.util.ArrayList;
 import java.util.List;

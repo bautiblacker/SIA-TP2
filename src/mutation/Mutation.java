@@ -1,7 +1,7 @@
 package mutation;
 
-import newModels.Data;
-import newModels.Player;
+import models.Data;
+import models.Player;
 
 public interface Mutation {
     void mutate(Player player, Data data);

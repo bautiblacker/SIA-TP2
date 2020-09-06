@@ -1,6 +1,6 @@
 package stopCriteria;
 
-import newModels.Data;
+import models.Data;
 
 public interface StopCriteria {
     boolean evaluate(Data data);

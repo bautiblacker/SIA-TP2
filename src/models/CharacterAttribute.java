@@ -1,6 +1,4 @@
-package newModels;
-
-import models.Attribute;
+package models;
 
 import java.util.List;
 

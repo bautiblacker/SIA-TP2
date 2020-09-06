@@ -1,7 +1,7 @@
 package crossover;
 
-import newModels.Allele;
-import newModels.Player;
+import models.Allele;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.List;

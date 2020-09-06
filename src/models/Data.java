@@ -1,11 +1,8 @@
-package newModels;
+package models;
 
 import crossover.CrossOver;
 import implementations.ImplementationType;
-import models.Pair;
 import mutation.Mutation;
-import newModels.CharacterClass;
-import newModels.Player;
 import parsers.Parameters;
 import selection.SelectionMethod;
 import stopCriteria.StopCriteria;

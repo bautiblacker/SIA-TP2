@@ -2,7 +2,7 @@ package parsers;
 
 import models.EquipmentType;
 import models.Attribute;
-import newModels.Equipment;
+import models.Equipment;
 
 import java.io.IOException;
 import java.io.Reader;

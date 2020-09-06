@@ -1,6 +1,5 @@
-import newModels.Data;
-import models.EquipmentType;
-import newModels.*;
+import models.*;
+import models.Equipment;
 import selection.Ranking;
 
 import java.util.ArrayList;
