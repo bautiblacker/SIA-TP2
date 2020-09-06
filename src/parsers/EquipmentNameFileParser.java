@@ -2,7 +2,7 @@ package parsers;
 
 import models.EquipmentType;
 
-public class FileParser {
+public class EquipmentNameFileParser {
     public static EquipmentType equipmentTypeByFileName(String filePath){
         String fileName = filePath.substring(filePath.lastIndexOf("/") + 1,filePath.lastIndexOf(".")).toUpperCase();
         switch (fileName) {
