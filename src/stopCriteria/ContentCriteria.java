@@ -1,5 +1,7 @@
 package stopCriteria;
 
+import newModels.Data;
+
 public class ContentCriteria implements StopCriteria {
 
     private long generationNumber;

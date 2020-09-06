@@ -8,6 +8,7 @@ import models.Pair;
 import mutation.Mutation;
 import mutation.MutationMethodType;
 import newModels.CharacterClass;
+import newModels.Data;
 import org.json.simple.JSONObject;
 import selection.SelectionMethod;
 import selection.SelectionMethodType;
@@ -121,14 +122,17 @@ class Validate {
         if((population == null || population <= 0) || (selectionLimit == null || selectionLimit <= 0)) {
             throw new InvalidArgumentException("Invalid POPULATION/ selection_limit value");
         }
-
         data.setPopulation(population);
         data.setSelectionLimit(selectionLimit);
     }
 
-    static void getAndValidateCriteria(Data data, String criteria, Number param) throws InvalidArgumentException {
+    static void getAndValidateCriteria(Data data, String criteria, Double structurePercentage, Number param) throws InvalidArgumentException {
+        StopCriteria stopCriteria;
         if(CriteriaTypes.contains(criteria)) {
-            StopCriteria stopCriteria = CriteriaTypes.getCriteriaInstance(CriteriaTypes.valueOf(criteria), param);
+            if(criteria.equals(CriteriaTypes.STRUCTURE.name())) {
+                if(!validProb(structurePercentage)) throw new InvalidArgumentException("Invalid Structure percentage:" + structurePercentage);
+                stopCriteria = CriteriaTypes.getCriteriaInstance(CriteriaTypes.valueOf(criteria), param, structurePercentage);
+            } else stopCriteria = CriteriaTypes.getCriteriaInstance(CriteriaTypes.valueOf(criteria), param);
             data.setCriteria(stopCriteria);
             return;
         }

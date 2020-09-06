@@ -16,7 +16,7 @@ public enum CriteriaTypes {
         return false;
     }
 
-    public static StopCriteria getCriteriaInstance(CriteriaTypes type, Number param) {
+    public static StopCriteria getCriteriaInstance(CriteriaTypes type, Number param, Double ... extraParam) {
         switch (type) {
             case CONTENT:
                 return new ContentCriteria(param.intValue());
@@ -28,7 +28,7 @@ public enum CriteriaTypes {
                 return new GenerationNumberCriteria(param.intValue());
         }
 
-        return new StructureCriteria(param.intValue());
+        return new StructureCriteria(param.intValue(), extraParam[0]);
     }
 
 }

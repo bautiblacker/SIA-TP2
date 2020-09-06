@@ -29,5 +29,6 @@ public enum Parameters {
     IMPLEMENTATION_METHOD,
 
     CRITERIA,
-    CRITERIA_PARAM;
+    CRITERIA_PARAM,
+    STRUCTURE_PERCENTAGE;
 }

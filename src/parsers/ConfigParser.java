@@ -1,6 +1,7 @@
 package parsers;
 
 import exceptions.InvalidArgumentException;
+import newModels.Data;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -50,7 +51,8 @@ public class ConfigParser {
 
             String stopCriteria = (String) json.get(CRITERIA.name());
             Number param = (Number) json.get(CRITERIA_PARAM.name());
-            Validate.getAndValidateCriteria(data, stopCriteria.toUpperCase(), param);
+            Double structurePercentage = (Double) json.get(STRUCTURE_PERCENTAGE.name());
+            Validate.getAndValidateCriteria(data, stopCriteria.toUpperCase(), structurePercentage, param);
 
         } catch (IOException | ParseException | InvalidArgumentException e) {
             System.out.println(e.getMessage());

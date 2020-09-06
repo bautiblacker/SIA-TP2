@@ -209,6 +209,11 @@ public class Test {
 
         String configPath = args[0];
         Data data = ConfigParser.parse(configPath);
+<<<<<<< HEAD
 >>>>>>> ConfigParams renamed to Data
+=======
+        int a = 0;
+
+>>>>>>> Stop Criteria added to engine and parser
     }
 }

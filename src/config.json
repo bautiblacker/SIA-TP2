@@ -26,7 +26,8 @@
 
   "IMPLEMENTATION_METHOD": "fillall",
 
-  "CRITERIA": "timeout",
-  "CRITERIA_PARAM": 10
+  "CRITERIA": "structure",
+  "CRITERIA_PARAM": 10,
+  "STRUCTURE_PERCENTAGE": 0.6
 
 }
