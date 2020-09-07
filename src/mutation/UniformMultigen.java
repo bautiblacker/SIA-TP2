@@ -13,7 +13,7 @@ public class UniformMultigen implements Mutation {
         double probability = data.getMutationProb();
         for (int i = 0; i < player.getCharacterAppearance().size(); i++) {
             if (probability > random.nextDouble()) {
-                player.getCharacterAppearance().get(i).mutate();
+                player.getCharacterAppearance().get(i).mutate(data);
             }
         }
     }

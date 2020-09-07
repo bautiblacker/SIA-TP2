@@ -1,5 +1,5 @@
 package models;
 
 public interface Allele {
-    void mutate();
+    void mutate(Data data);
 }

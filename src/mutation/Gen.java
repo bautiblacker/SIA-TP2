@@ -13,7 +13,7 @@ public class Gen implements Mutation {
         double probability = data.getMutationProb();
         if (probability > random.nextDouble()) {
             int gen = random.nextInt(player.getCharacterAppearance().size());
-            player.getCharacterAppearance().get(gen).mutate();
+            player.getCharacterAppearance().get(gen).mutate(data);
         }
     }
 }

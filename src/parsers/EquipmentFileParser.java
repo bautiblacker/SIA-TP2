@@ -3,16 +3,18 @@ package parsers;
 import models.EquipmentType;
 import models.Attribute;
 import models.Equipment;
+import models.Pair;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
 public class EquipmentFileParser {
-    public static List<Equipment> equipmentParser(Reader reader, EquipmentType equipmentType, long equipmentsNumber,
-                                                  int fileLines) {
+    public static List<Equipment> equipmentParser(Pair<String, Long> path, EquipmentType equipmentType, long equipmentsNumber) {
         List<Equipment> equipmentList = new ArrayList<>();
         try {
+            Reader reader = new FileReader(path.getKey());
             Set<Attribute> titles = titleParser(reader);
             Map<Attribute, Double> values;
             SortedSet<Integer> randomIndexes = new TreeSet<>();
@@ -20,7 +22,7 @@ public class EquipmentFileParser {
             int linesRead = 0;
 
             while (randomIndexes.size() < equipmentsNumber) {
-                randomIndexes.add(random.nextInt(fileLines) + 1);
+                randomIndexes.add(random.nextInt(path.getValue().intValue()) + 1);
             }
 
             do {

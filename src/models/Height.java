@@ -4,8 +4,7 @@ import java.util.Random;
 
 public class Height implements Allele {
     private double value;
-    public final static double multiplier = 2; // 1.3 + (2 - 1.3), 1.3 y 2 son los limites de altura
-
+    public final static double multiplier = 2;
     public double getValue() {
         return value;
     }
@@ -15,7 +14,7 @@ public class Height implements Allele {
     }
 
     @Override
-    public void mutate() {
+    public void mutate(Data data) {
         Random random = new Random();
         this.value = multiplier*random.nextDouble();
     }

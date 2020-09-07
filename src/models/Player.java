@@ -2,7 +2,7 @@ package models;
 
 import java.util.List;
 
-public class Player implements Genotype {
+public class Player implements Genotype,Comparable<Player> {
     final private CharacterClass characterClass;
     final private List<Allele> characterAppearance; //TODO: STRUCTURE-> |h|Helmet|Gloves|Shirtfront|Weapon|Boots|
     final private CharacterAttribute characterAttribute;
@@ -11,7 +11,7 @@ public class Player implements Genotype {
         this.characterClass = characterClass;
         this.characterAppearance = characterAppearance;
         this.characterAttribute = new CharacterAttribute(characterAppearance.subList(1,
-                characterAppearance.size() - 1));
+                characterAppearance.size()));
     }
 
     public double getPerformance() {
@@ -50,6 +50,11 @@ public class Player implements Genotype {
 
     @Override
     public String toString() {
-        return characterClass + " " + getPerformance();
+        return String.format("%s %s", characterClass, getPerformance());
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return (int)(this.getPerformance() - o.getPerformance());
     }
 }

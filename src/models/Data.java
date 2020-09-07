@@ -7,7 +7,7 @@ import parsers.Parameters;
 import selection.SelectionMethod;
 import stopCriteria.StopCriteria;
 
-import java.util.List;
+import java.nio.DoubleBuffer;
 import java.util.Map;
 
 public class Data {
@@ -26,47 +26,26 @@ public class Data {
     private ImplementationType implementationType;
     private CharacterClass playerClass;
     private int mutationMultiGenM;
-    private double uniformThreshold;
     private StopCriteria Criteria;
-
     private long genCounter;
-    private double startTime;
-    private int criteriaCounter;
-    private double bestFitness;
 
-    private List<Player> prevGeneration;
-    private List<Player> currentGeneration;
+    private Map<EquipmentType, Pair<String, Long>> equipmentsFilePaths;
 
-    public void increaseGenCounter() {
-        this.genCounter += 1;
+    public Map<EquipmentType, Pair<String, Long>> getEquipmentsFilePaths() {
+        return equipmentsFilePaths;
+    }
+
+    public void setEquipmentsFilePaths(Map<EquipmentType, Pair<String, Long>> equipmentsFilePaths) {
+        this.equipmentsFilePaths = equipmentsFilePaths;
     }
 
     public long getGenNumber() {
         return genCounter;
     }
 
-    public List<Player> getPrevGeneration() {
-        return prevGeneration;
+    public void increaseGenCounter() {
+        this.genCounter += 1;
     }
-
-    public void setPrevGeneration(List<Player> prevGeneration) {
-        this.prevGeneration = prevGeneration;
-    }
-
-    public List<Player> getCurrentGeneration() {
-        return currentGeneration;
-    }
-
-    public void setCurrentGeneration(List<Player> currentGeneration) {
-        this.currentGeneration = currentGeneration;
-    }
-
-    public void setCriteriaCounter(int criteriaCounter) {
-        this.criteriaCounter = criteriaCounter;
-    }
-
-
-    /***************************/
 
     public StopCriteria getCriteria() {
         return Criteria;
@@ -76,175 +55,87 @@ public class Data {
         Criteria = criteria;
     }
 
-    public CharacterClass getPlayerClass() {
-        return playerClass;
-    }
+    /******* Player *******/
 
-    public void setPlayerClass(CharacterClass playerClass) {
-        this.playerClass = playerClass;
-    }
+    public CharacterClass getPlayerClass() { return playerClass; }
 
-    public double getUniformThreshold() {
-        return uniformThreshold;
-    }
+    public void setPlayerClass(CharacterClass playerClass) { this.playerClass = playerClass; }
 
-    public void setUniformThreshold(double uniformThreshold) {
-        this.uniformThreshold = uniformThreshold;
-    }
+    /******* Mutation *******/
 
-    public double getBestFitness() {
-        return bestFitness;
-    }
+    public Mutation getMutationMethod() { return mutationMethod; }
 
-    public void setBestFitness(double bestFitness) {
-        this.bestFitness = bestFitness;
-    }
+    public void setMutationMethod(Mutation mutationMethod) { this.mutationMethod = mutationMethod; }
 
-    public int getCriteriaCounter() {
-        return criteriaCounter;
-    }
+    public double getMutationProb() { return mutationProb; }
 
-    public double getStartTime() {
-        return startTime;
-    }
+    public void setMutationProb(double mutationProb) { this.mutationProb = mutationProb; }
 
-    public void setStartTime(double startTime) {
-        this.startTime = startTime;
-    }
+    /*** Limited MultiGen ***/
+    public int getMutationMultiGenM() { return mutationMultiGenM; }
 
-    public int getMutationMultiGenM() {
-        return mutationMultiGenM;
-    }
+    public void setMutationMultiGenM(int mutationMultiGenM) { this.mutationMultiGenM = mutationMultiGenM; }
 
-    public Map<Parameters, Pair<SelectionMethod, Double>> getSelectionMethods() {
-        return selectionMethods;
-    }
+    /******* Crossover *******/
 
-    public void setSelectionMethods(Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods) {
-        this.selectionMethods = selectionMethods;
-    }
+    public CrossOver getCrossoverMethod() { return crossoverMethod; }
 
-    public Mutation getMutationMethod() {
-        return mutationMethod;
-    }
+    public void setCrossoverMethod(CrossOver crossoverMethod) { this.crossoverMethod = crossoverMethod; }
 
-    public void setMutationMethod(Mutation mutationMethod) {
-        this.mutationMethod = mutationMethod;
-    }
+    public void setCrossoverProb(double crossoverProb) { this.crossoverProb = crossoverProb; }
 
-    public void setMutationProb(double mutationProb) {
-        this.mutationProb = mutationProb;
-    }
+    /******* Implementation Method *******/
 
-    public CrossOver getCrossoverMethod() {
-        return crossoverMethod;
-    }
+    public ImplementationType getImplementationType() { return implementationType; }
 
-    public void setCrossoverMethod(CrossOver crossoverMethod) {
-        this.crossoverMethod = crossoverMethod;
-    }
+    public void setImplementationType(ImplementationType implementationType) { this.implementationType = implementationType; }
 
-    public void setMutationMultiGenM(int mutationMultiGenM) {
-        this.mutationMultiGenM = mutationMultiGenM;
-    }
+    /******* Overall Parameters *******/
 
-    public double getCrossoverProb() {
-        return crossoverProb;
-    }
+    public long getPopulation() { return population; }
 
-    public void setCrossoverProb(double crossoverProb) {
-        this.crossoverProb = crossoverProb;
-    }
+    public void setPopulation(long population) { this.population = population; }
 
-    public ImplementationType getImplementationType() {
-        return implementationType;
-    }
+    public long getSelectionLimit() { return selectionLimit; }
 
-    public void setImplementationType(ImplementationType implementationType) {
-        this.implementationType = implementationType;
-    }
+    public void setSelectionLimit(long select) { this.selectionLimit = select; }
 
-    public long getPopulation() {
-        return population;
-    }
+    /******* Selection & Replacement methods *******/
 
-    public void setPopulation(long population) {
-        this.population = population;
-    }
+    public void setSelectionMethods(Map<Parameters, Pair<SelectionMethod, Double>> selectionMethods) { this.selectionMethods = selectionMethods; }
 
-    public long getSelectionLimit() {
-        return selectionLimit;
-    }
+    public SelectionMethod getSelectionMethodA() { return selectionMethods.get(Parameters.SELECTION_METHOD_A).getKey(); }
 
-    public void setSelectionLimit(long select) {
-        this.selectionLimit = select;
-    }
+    public SelectionMethod getSelectionMethodB() { return selectionMethods.get(Parameters.SELECTION_METHOD_B).getKey(); }
 
-    public long getTournamentM() {
-        return tournamentM;
-    }
+    public SelectionMethod getReplacementMethodA() { return selectionMethods.get(Parameters.REPLACEMENT_METHOD_A).getKey(); }
 
-    public void setTournamentM(long tournamentM) {
-        this.tournamentM = tournamentM;
-    }
+    public SelectionMethod getReplacementMethodB() { return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getKey(); }
 
-    public double getTournamentT() {
-        return tournamentT;
-    }
+    public Double getSelectionMethodProb() { return selectionMethods.get(Parameters.SELECTION_METHOD_A).getValue(); }
 
-    public void setTournamentT(double tournamentT) {
-        this.tournamentT = tournamentT;
-    }
+    public Double getReplacementMethodProb() { return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getValue(); }
 
-    public double getBoltzmannT0() {
-        return boltzmannT0;
-    }
+    /*** Deterministic Tournament M ***/
+    public long getTournamentM() { return tournamentM; }
 
-    public void setBoltzmannT0(double boltzmannT0) {
-        this.boltzmannT0 = boltzmannT0;
-    }
+    public void setTournamentM(long tournamentM) { this.tournamentM = tournamentM; }
 
-    public void setBoltzmannTc(double boltzmannTc) {
-        this.boltzmannTc = boltzmannTc;
-    }
+    /*** Probabilistic Tournament ***/
+    public double getTournamentT() { return tournamentT; }
 
-    public double getBoltzmannTc() {
-        return boltzmannTc;
-    }
+    public void setTournamentT(double tournamentT) { this.tournamentT = tournamentT; }
 
-    public double getBoltzmannK() {
-        return boltzmannK;
-    }
+    /*** Boltzmann ***/
+    public double getBoltzmannT0() { return boltzmannT0; }
 
-    public void setBoltzmannK(double boltzmannK) {
-        this.boltzmannK = boltzmannK;
-    }
+    public void setBoltzmannT0(double boltzmannT0) { this.boltzmannT0 = boltzmannT0; }
 
-    public double getMutationProb() {
-        return mutationProb;
-    }
+    public void setBoltzmannTc(double boltzmannTc) { this.boltzmannTc = boltzmannTc; }
 
-    public SelectionMethod getSelectionMethodA() {
-        return selectionMethods.get(Parameters.SELECTION_METHOD_A).getKey();
-    }
+    public double getBoltzmannTc() { return boltzmannTc; }
 
-    public SelectionMethod getSelectionMethodB() {
-        return selectionMethods.get(Parameters.SELECTION_METHOD_B).getKey();
-    }
+    public double getBoltzmannK() { return boltzmannK; }
 
-    public SelectionMethod getReplacementMethodA() {
-        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_A).getKey();
-    }
-
-    public SelectionMethod getReplacementMethodB() {
-        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getKey();
-    }
-
-    public Double getSelectionMethodProb() {
-        return selectionMethods.get(Parameters.SELECTION_METHOD_A).getValue();
-    }
-
-    public Double getReplacementMethodProb() {
-        return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getValue();
-    }
+    public void setBoltzmannK(double boltzmannK) { this.boltzmannK = boltzmannK; }
 }

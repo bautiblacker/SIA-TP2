@@ -16,16 +16,16 @@ public class StructureCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(Data data) {
-        if(data.getPrevGeneration() == null || data.getPrevGeneration().isEmpty()) return false;
-        double proportionLimit = matchedProportion(data.getCurrentGeneration(), data.getPrevGeneration());
+    public boolean evaluate(CriteriaHandler handler) {
+        if(handler.getPrevGeneration() == null || handler.getPrevGeneration().isEmpty()) return false;
+        double proportionLimit = matchedProportion(handler.getCurrentGeneration(), handler.getPrevGeneration());
         if(proportionLimit <= this.percentage) {
-           data.setCriteriaCounter(0);
+           handler.setCriteriaCounter(0);
         } else {
-            int currentCounter = data.getCriteriaCounter();
-            data.setCriteriaCounter(currentCounter + 1);
+            int currentCounter = handler.getCriteriaCounter();
+            handler.setCriteriaCounter(currentCounter + 1);
         }
-        return data.getCriteriaCounter() >= genLimit;
+        return handler.getCriteriaCounter() >= genLimit;
     }
 
     private double matchedProportion(List<Player> current, List<Player> prev) {

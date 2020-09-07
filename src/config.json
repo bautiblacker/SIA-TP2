@@ -5,6 +5,7 @@
 
   "MUTATION": "complete",
   "MUTATION_PROB": 0.5,
+  "LIMITED_MULTIGEN_M": 4,
 
   "CROSSOVER": "singlepoint",
   "CROSSOVER_PROB": 0.5,
@@ -26,8 +27,7 @@
 
   "IMPLEMENTATION_METHOD": "fillall",
 
-  "CRITERIA": "structure",
-  "CRITERIA_PARAM": 10,
-  "STRUCTURE_PERCENTAGE": 0.6
-
+  "CRITERIA": "timeout",
+  "CRITERIA_PARAM": 10000,
+  "STRUCTURE_PERCENTAGE": 0.2
 }

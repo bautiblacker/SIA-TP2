@@ -13,7 +13,7 @@ public class Complete implements Mutation {
         double probability = data.getMutationProb();
         if (probability > random.nextDouble()) {
             for (int i = 0; i < player.getCharacterAppearance().size(); i++) {
-                player.getCharacterAppearance().get(i).mutate();
+                player.getCharacterAppearance().get(i).mutate(data);
             }
         }
     }

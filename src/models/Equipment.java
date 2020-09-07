@@ -1,8 +1,9 @@
 package models;
 
-import models.Allele;
-import models.Attribute;
-import models.EquipmentType;
+import parsers.EquipmentFileParser;
+import parsers.EquipmentsFilesParser;
+import utils.Utils;
+
 import java.util.Random;
 
 import java.util.Map;
@@ -66,12 +67,12 @@ public class Equipment implements Allele {
     }
 
     @Override
-    public void mutate() {
-        Random random = new Random();
-        this.strength += (2 * random.nextDouble() - 1);
-        this.agility += (2 * random.nextDouble() - 1);
-        this.expertise += (2 * random.nextDouble() - 1);
-        this.life += (2 * random.nextDouble() - 1);
-        this.resistance += (2 * random.nextDouble() - 1);
+    public void mutate(Data data) {
+        Equipment randomEquipment = Utils.getRandomEquipmentFromFile(type, data);
+        this.strength = randomEquipment.strength;
+        this.agility = randomEquipment.agility;
+        this.expertise = randomEquipment.expertise;
+        this.life = randomEquipment.life;
+        this.resistance = randomEquipment.resistance;
     }
 }

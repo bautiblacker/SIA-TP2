@@ -22,9 +22,9 @@ public enum CrossOverMethodType {
             case TWOPOINTS:
                 return new TwoPointsCrossOver();
             case ANNULAR:
-                return null;
+                return new AnnularCrossover();
             case UNIFORM:
-                return null;
+                return new UniformCrossover();
         }
 
         return null;

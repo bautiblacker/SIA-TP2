@@ -16,7 +16,7 @@ public class LimitedMultigen implements Mutation {
         int r = random.nextInt(M) + 1;
         for (int i = 0; i < r; i++) {
             if (probability > random.nextDouble()) {
-                player.getCharacterAppearance().get(random.nextInt(player.getCharacterAppearance().size())).mutate();
+                player.getCharacterAppearance().get(random.nextInt(player.getCharacterAppearance().size())).mutate(data);
             }
         }
     }

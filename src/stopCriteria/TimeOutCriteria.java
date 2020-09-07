@@ -1,7 +1,5 @@
 package stopCriteria;
 
-import models.Data;
-
 public class TimeOutCriteria implements StopCriteria {
 
     private double timeout;
@@ -11,7 +9,8 @@ public class TimeOutCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(Data data) {
-        return System.currentTimeMillis() - data.getStartTime() >= timeout;
+    public boolean evaluate(CriteriaHandler handler) {
+        double diff = System.currentTimeMillis() - handler.getStartTime();
+        return diff >= timeout;
     }
 }

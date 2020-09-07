@@ -12,19 +12,18 @@ public class PreEngine {
 
     public static List<Player> start(Map<EquipmentType, List<Equipment>> equipments, Data data) {
         List<Player> starterPopulation = new ArrayList<>();
-        List<Allele> chromosome = new ArrayList<>();
         Player player;
         Allele height;
         Random random = new Random();
 
-        int index = 0;
         while(starterPopulation.size() < data.getPopulation()) {
-            height = new Height(Height.multiplier*random.nextDouble());
+            List<Allele> chromosome = new ArrayList<>();
+            height = new Height(1.3 + 0.7*random.nextDouble());
             chromosome.add(height);
             for(EquipmentType eq : equipments.keySet()) {
-                chromosome.add(equipments.get(eq).get(index));
+                List<Equipment> equipmentList = equipments.get(eq);
+                chromosome.add(equipmentList.get(random.nextInt(equipmentList.size())));
             }
-            index++;
             player = new Player(data.getPlayerClass(), chromosome);
             starterPopulation.add(player);
         }
