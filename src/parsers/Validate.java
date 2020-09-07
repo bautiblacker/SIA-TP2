@@ -98,13 +98,13 @@ class Validate {
                 else throw new InvalidArgumentException("Invalid Threshold: " + threshold);
                 break;
             case TOURNAMENTDET:
-                long M = (Integer) json.get(TOURNAMENT_DET_M.name());
+                long M = (Long) json.get(TOURNAMENT_DET_M.name());
                 if(M > 0) data.setTournamentM(M);
                 else throw new InvalidArgumentException("Invalid M parameter: " + M);
                 break;
             case BOLTZMANN:
-                Double T = (Double) json.get(BOLTZMANN_T0.name());
-                Double Tk = (Double) json.get(BOLTZMANN_TK.name());
+                Double T = ((Long) json.get(BOLTZMANN_T0.name())).doubleValue();
+                Double Tk = ((Long) json.get(BOLTZMANN_TK.name())).doubleValue();
                 if(T > 0 && Tk > 0){
                     data.setBoltzmannT0(T);
                     data.setBoltzmannTc(Tk);

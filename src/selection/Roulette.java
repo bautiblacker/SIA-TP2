@@ -14,10 +14,8 @@ public class Roulette implements SelectionMethod {
         List<Player> selectedPlayers = new ArrayList<>();
         Random random = new Random();
         double r;
-//        System.out.println(rouletteNodes.toString());
         while (selectLimit > 0) {
             r = random.nextDouble();
-//            System.out.println("R ----> " + r);
             Player e = findPlayer(rouletteNodes, r);
             selectedPlayers.add(e);
             selectLimit--;

@@ -21,19 +21,16 @@ import java.util.Map;
 public class SelectionResolver {
     public static void main(String[] args) {
         JSONParser parser = new JSONParser();
-        String equipmentsFilesPath = args[0];
 
-        // llamar a engine
-//        String configFilePath = args[1];
-        // llamar a PreEngine -> devuelve lista de players <== population
-        Data data = ConfigParser.parse("src/config.json");
+        String configFilePath = args[0];
+        String equipmentsFilesPath = args[1];
+
+        Data data = ConfigParser.parse(configFilePath);
 
         Map<EquipmentType, List<Equipment>> equipmentsList = EquipmentsFilesParser.equipmentsFilesParser(data, equipmentsFilesPath);
         List<Player> starterPopulation = PreEngine.start(equipmentsList, data);
 
-        // llamar a engine
         Player player = Engine.start(starterPopulation,data);
         System.out.println(player);
-        return;
     }
 }

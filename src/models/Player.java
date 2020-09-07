@@ -10,8 +10,7 @@ public class Player implements Genotype,Comparable<Player> {
     public Player(CharacterClass characterClass, List<Allele> characterAppearance) {
         this.characterClass = characterClass;
         this.characterAppearance = characterAppearance;
-        this.characterAttribute = new CharacterAttribute(characterAppearance.subList(1,
-                characterAppearance.size()));
+        this.characterAttribute = new CharacterAttribute(characterAppearance.subList(1, characterAppearance.size()));
     }
 
     public double getPerformance() {
@@ -55,6 +54,6 @@ public class Player implements Genotype,Comparable<Player> {
 
     @Override
     public int compareTo(Player o) {
-        return (int)(this.getPerformance() - o.getPerformance());
+        return (int)(o.getPerformance() - this.getPerformance());
     }
 }

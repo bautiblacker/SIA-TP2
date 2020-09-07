@@ -11,7 +11,6 @@ public enum Parameters {
 
     CROSSOVER,
     CROSSOVER_PROB,
-//    UNIFORM_THRESHOLD,
 
     SELECTION_METHOD_A,
     SELECTION_METHOD_B,
@@ -31,5 +30,6 @@ public enum Parameters {
 
     CRITERIA,
     CRITERIA_PARAM,
-    STRUCTURE_PERCENTAGE;
+    STRUCTURE_PERCENTAGE,
+    MAX_LINES;
 }

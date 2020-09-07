@@ -28,11 +28,20 @@ public class Data {
     private int mutationMultiGenM;
     private StopCriteria Criteria;
     private long genCounter;
+    private long maxLines;
 
     private Map<EquipmentType, Pair<String, Long>> equipmentsFilePaths;
 
     public Map<EquipmentType, Pair<String, Long>> getEquipmentsFilePaths() {
         return equipmentsFilePaths;
+    }
+
+    public long getMaxLines() {
+        return maxLines;
+    }
+
+    public void setMaxLines(long maxLines) {
+        this.maxLines = maxLines;
     }
 
     public void setEquipmentsFilePaths(Map<EquipmentType, Pair<String, Long>> equipmentsFilePaths) {
@@ -114,7 +123,7 @@ public class Data {
 
     public Double getSelectionMethodProb() { return selectionMethods.get(Parameters.SELECTION_METHOD_A).getValue(); }
 
-    public Double getReplacementMethodProb() { return selectionMethods.get(Parameters.REPLACEMENT_METHOD_B).getValue(); }
+    public Double getReplacementMethodProb() { return selectionMethods.get(Parameters.REPLACEMENT_METHOD_A).getValue(); }
 
     /*** Deterministic Tournament M ***/
     public long getTournamentM() { return tournamentM; }

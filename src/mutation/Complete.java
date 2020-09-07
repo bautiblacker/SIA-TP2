@@ -11,7 +11,8 @@ public class Complete implements Mutation {
     public void mutate(Player player, Data data) {
         Random random = new Random();
         double probability = data.getMutationProb();
-        if (probability > random.nextDouble()) {
+        double rand = random.nextDouble();
+        if (probability > rand) {
             for (int i = 0; i < player.getCharacterAppearance().size(); i++) {
                 player.getCharacterAppearance().get(i).mutate(data);
             }

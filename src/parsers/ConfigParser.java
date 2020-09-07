@@ -57,6 +57,9 @@ public class ConfigParser {
             Double structurePercentage = (Double) json.get(STRUCTURE_PERCENTAGE.name());
             Validate.getAndValidateCriteria(data, stopCriteria.toUpperCase(), structurePercentage, param);
 
+            Long maxLines = (Long) json.get(MAX_LINES.name());
+            data.setMaxLines(maxLines);
+
         } catch (IOException | ParseException | InvalidArgumentException e) {
             System.out.println(e.getMessage());
             return null;
