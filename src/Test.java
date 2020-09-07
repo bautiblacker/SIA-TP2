@@ -1,5 +1,8 @@
 import models.*;
 import models.Equipment;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 import selection.Ranking;
 
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Equipment h1 = new Equipment(1, 3, 5, 28, 7, 80, EquipmentType.HELMET);
         Equipment h2 = new Equipment(2, 7, 3, 1, 17, 79, EquipmentType.HELMET);
         Equipment h3 = new Equipment(3, 5, 1, 15, 10, 15, EquipmentType.HELMET);
@@ -105,5 +108,42 @@ public class Test {
 
 //        String configPath = args[0];
 //        Map<String, Object> configParams = ConfigParser.parse(configPath);
+
+//        double phase = 0;
+//        double[][] initdata = getSineData(phase);
+//
+//        // Create Chart
+//        final XYChart chart = QuickChart.getChart("Simple XChart Real-time Demo", "Radians", "Sine", "sine", initdata[0], initdata[1]);
+//
+//        // Show it
+//        final SwingWrapper<XYChart> sw = new SwingWrapper<XYChart>(chart);
+//        sw.displayChart();
+//
+//        while (true) {
+//
+//            phase += 2 * Math.PI * 2 / 20.0;
+//
+//            Thread.sleep(100);
+//
+//            final double[][] data = getSineData(phase);
+//
+//            javax.swing.SwingUtilities.invokeLater(() -> {
+//
+//                chart.updateXYSeries("sine", data[0], data[1], null);
+//                sw.repaintChart();
+//            });
+//        }
     }
+
+//    private static double[][] getSineData(double phase) {
+//
+//        double[] xData = new double[100];
+//        double[] yData = new double[100];
+//        for (int i = 0; i < xData.length; i++) {
+//            double radians = phase + (2 * Math.PI / xData.length * i);
+//            xData[i] = radians;
+//            yData[i] = Math.sin(radians);
+//        }
+//        return new double[][] { xData, yData };
+//    }
 }

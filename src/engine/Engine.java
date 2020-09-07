@@ -4,7 +4,11 @@ import implementations.ImplementationMethod;
 import implementations.ImplementationType;
 import models.Data;
 import models.Player;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 import selection.SelectionMethod;
+import stopCriteria.CriteriaHandler;
 import stopCriteria.StopCriteria;
 
 import java.util.ArrayList;
@@ -12,7 +16,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Engine {
-
     public static Player start(List<Player> population, Data data) {
         List<Player> children, parents;
         SelectionMethod selectionMethodA = data.getSelectionMethodA();
@@ -22,13 +25,22 @@ public class Engine {
         SelectionMethod replacementMethodA = data.getReplacementMethodA();
         SelectionMethod replacementMethodB = data.getReplacementMethodB();
         Double replacementProb = data.getReplacementMethodProb();
+        CriteriaHandler criteriaHandler = new CriteriaHandler();
 
         StopCriteria criteria = data.getCriteria();
-        data.setStartTime(System.currentTimeMillis());
-        while(!criteria.evaluate(data)) {
+        criteriaHandler.setStartTime(System.currentTimeMillis());
+
+        List<Double> fitness = new ArrayList<>();
+        List<Long> generations = new ArrayList<>();
+
+
+        XYChart chart = QuickChart.getChart("Genetic Algorithm", "Generations", "Fitness", data.getPlayerClass().name(), fitness, generations);
+        final SwingWrapper<XYChart> sw = new SwingWrapper<>(chart);
+        sw.displayChart();
+        while(!criteria.evaluate(criteriaHandler)) {
             parents = selectionMethodA.select(population, data, (long) (data.getPopulation() * selectionProb));
             parents.addAll(selectionMethodB.select(population, data, (long) (data.getPopulation() * (1-selectionProb))));
-            data.setPrevGeneration(parents);
+            criteriaHandler.setPrevGeneration(parents);
             children = new ArrayList<>();
             int i = 0;
             while(children.size() < data.getSelectionLimit() && i < parents.size() - 1) {
@@ -47,23 +59,27 @@ public class Engine {
             population = implementation.implement(children, parents, data, replacementProb);
             implementation.setMethod(replacementMethodB);
             population.addAll(implementation.implement(children, parents, data, 1 - replacementProb));
-            data.setCurrentGeneration(population);
+            criteriaHandler.setCurrentGeneration(population);
+            criteriaHandler.increaseGenCounter();
             data.increaseGenCounter();
             population.sort((Comparator.comparingDouble(Player::getPerformance)));
 
-            if(data.getBestFitness() != population.get(0).getPerformance()) {
-                data.setBestFitness(population.get(0).getPerformance());
-                data.setCriteriaCounter(0);
+            if(criteriaHandler.getBestFitness() != population.get(0).getPerformance()) {
+                criteriaHandler.setBestFitness(population.get(0).getPerformance());
+                criteriaHandler.setCriteriaCounter(0);
             } else {
-                int fitnessCounter = data.getCriteriaCounter();
-                data.setCriteriaCounter(fitnessCounter + 1);
+                int fitnessCounter = criteriaHandler.getCriteriaCounter();
+                criteriaHandler.setCriteriaCounter(fitnessCounter + 1);
             }
 
-            // graficos - http://www.jfree.org/jfreechart/
-            //          - https://knowm.org/open-source/xchart/
+            fitness.add(population.get(0).getPerformance());
+            generations.add(criteriaHandler.getGenNumber());
 
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                chart.updateXYSeries(data.getPlayerClass().name(), fitness, generations, null);
+                sw.repaintChart();
+            });
         }
-
         return population.get(0);
     }
 }
