@@ -17,14 +17,13 @@ public class PreEngine {
         Allele height;
         Random random = new Random();
 
-        int index = 0;
         while(starterPopulation.size() < data.getPopulation()) {
             height = new Height(Height.multiplier*random.nextDouble());
             chromosome.add(height);
             for(EquipmentType eq : equipments.keySet()) {
-                chromosome.add(equipments.get(eq).get(index));
+                List<Equipment> equipmentList = equipments.get(eq);
+                chromosome.add(equipmentList.get(random.nextInt(equipmentList.size())));
             }
-            index++;
             player = new Player(data.getPlayerClass(), chromosome);
             starterPopulation.add(player);
         }
