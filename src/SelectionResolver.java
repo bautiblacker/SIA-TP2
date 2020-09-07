@@ -22,7 +22,7 @@ public class SelectionResolver {
     public static void main(String[] args) {
         JSONParser parser = new JSONParser();
         String equipmentsFilesPath = args[0];
-        String configFilePath = args[1];
+//        String configFilePath = args[1];
         Map<EquipmentType, List<Equipment>> equipmentsList = EquipmentsFilesParser.equipmentsFilesParser(equipmentsFilesPath);
 
         // llamar a PreEngine -> devuelve lista de players <== population

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 import static parsers.Parameters.*;
+import static sun.security.krb5.Confounder.intValue;
 
 public class ConfigParser {
     public static Data parse(String path) {
@@ -34,7 +35,7 @@ public class ConfigParser {
             // Mutation method validation
             String mutationName= (String) json.get(MUTATION.name());
             Double mutationProbValue = (Double) json.get(MUTATION_PROB.name());
-            Integer crossoverM = (Integer) json.get(LIMITED_MULTIGEN_M.name());
+            Integer crossoverM = ((Long) json.get(LIMITED_MULTIGEN_M.name())).intValue();
 
             Validate.getAndValidateMutation(data, mutationName.toUpperCase(), mutationProbValue, crossoverM);
 

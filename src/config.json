@@ -5,7 +5,7 @@
 
   "MUTATION": "complete",
   "MUTATION_PROB": 0.5,
-  "LIMITED_MULTIGEN_M": 0.7,
+  "LIMITED_MULTIGEN_M": 4,
 
   "CROSSOVER": "singlepoint",
   "CROSSOVER_PROB": 0.5,
