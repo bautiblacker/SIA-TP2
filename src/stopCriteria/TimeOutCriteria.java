@@ -11,7 +11,7 @@ public class TimeOutCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(Data data) {
-        return System.currentTimeMillis() - data.getStartTime() >= timeout;
+    public boolean evaluate(CriteriaHandler handler) {
+        return System.currentTimeMillis() - handler.getStartTime() >= timeout;
     }
 }

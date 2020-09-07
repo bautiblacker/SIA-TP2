@@ -11,7 +11,7 @@ public class GenerationNumberCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(Data data) {
-        return data.getGenNumber() >= generationLimit;
+    public boolean evaluate(CriteriaHandler handler) {
+        return handler.getGenNumber() >= generationLimit;
     }
 }

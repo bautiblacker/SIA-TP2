@@ -11,7 +11,7 @@ public class AcceptableSolutionCriteria implements StopCriteria {
     }
 
     @Override
-    public boolean evaluate(Data data) {
-        return data.getBestFitness() >= limitFitness;
+    public boolean evaluate(CriteriaHandler handler) {
+        return handler.getBestFitness() >= limitFitness;
     }
 }
