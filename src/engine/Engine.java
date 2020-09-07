@@ -8,7 +8,9 @@ import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 import selection.SelectionMethod;
+import stopCriteria.AcceptableSolutionCriteria;
 import stopCriteria.CriteriaHandler;
+import stopCriteria.CriteriaTypes;
 import stopCriteria.StopCriteria;
 
 import java.util.ArrayList;
@@ -35,18 +37,18 @@ public class Engine {
         fitness.add(0.0);
         List<Long> generations = new ArrayList<>();
         generations.add(0L);
-
-
         XYChart chart = QuickChart.getChart("Genetic Algorithm", "Generations", "Fitness", data.getPlayerClass().name(), generations, fitness);
         final SwingWrapper<XYChart> sw = new SwingWrapper<>(chart);
         sw.displayChart();
+
         while(!criteria.evaluate(criteriaHandler)) {
-            parents = selectionMethodA.select(population, data, (long) (data.getPopulation() * selectionProb));
-            parents.addAll(selectionMethodB.select(population, data, (long) (data.getPopulation() * (1-selectionProb))));
-            criteriaHandler.setPrevGeneration(parents);
+            criteriaHandler.setPrevGeneration(population);
+            parents = selectionMethodA.select(population, data, (long) Math.ceil((data.getSelectionLimit() * selectionProb)));
+            parents.addAll(selectionMethodB.select(population, data, (long) (data.getSelectionLimit() * (1-selectionProb))));
             children = new ArrayList<>();
             int i = 0;
-            while(children.size() < data.getSelectionLimit() && i < parents.size() - 1) {
+            Collections.shuffle(parents);
+            while(i < parents.size() - 1) {
                 Player parentOne = parents.get(i++);
                 Player parentTwo = parents.get(i);
 
@@ -59,23 +61,21 @@ public class Engine {
 
             ImplementationMethod implementation = ImplementationType.getMethodInstance(data.getImplementationType());
             implementation.setMethod(replacementMethodA);
-            population = implementation.implement(children, parents, data, replacementProb);
+            population = implementation.implement(children, criteriaHandler.getPrevGeneration(), data, replacementProb);
             implementation.setMethod(replacementMethodB);
-            population.addAll(implementation.implement(children, parents, data, 1 - replacementProb));
+            population.addAll(implementation.implement(children, criteriaHandler.getPrevGeneration(), data, 1 - replacementProb));
             criteriaHandler.setCurrentGeneration(population);
             criteriaHandler.increaseGenCounter();
             data.increaseGenCounter();
-            population.sort((Comparator.comparingDouble(Player::getPerformance)));
+            population.sort((Comparator.comparingDouble(Player::getPerformance)).reversed());
 
-            if(criteriaHandler.getBestFitness() != population.get(0).getPerformance()) {
+            if(criteriaHandler.getBestFitness() <= population.get(0).getPerformance()) {
                 criteriaHandler.setBestFitness(population.get(0).getPerformance());
-                criteriaHandler.setCriteriaCounter(0);
+                criteriaHandler.resetCriteraCounter();
             } else {
-                int fitnessCounter = criteriaHandler.getCriteriaCounter();
-                criteriaHandler.setCriteriaCounter(fitnessCounter + 1);
+                criteriaHandler.increaseGenCounter();
             }
-            Collections.sort(population);
-            fitness.add(population.get(0).getPerformance());
+            fitness.add(criteriaHandler.getBestFitness());
             generations.add(criteriaHandler.getGenNumber());
 
             javax.swing.SwingUtilities.invokeLater(() -> {

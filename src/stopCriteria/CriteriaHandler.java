@@ -37,9 +37,11 @@ public class CriteriaHandler {
         this.currentGeneration = currentGeneration;
     }
 
-    public void setCriteriaCounter(int criteriaCounter) {
-        this.criteriaCounter = criteriaCounter;
+    public void increaseCriteriaCounter() {
+        this.criteriaCounter += 1;
     }
+
+    public void resetCriteraCounter() { this.criteriaCounter = 0; }
 
     public double getBestFitness() {
         return bestFitness;

@@ -69,6 +69,7 @@ public class Equipment implements Allele {
     @Override
     public void mutate(Data data) {
         Equipment randomEquipment = Utils.getRandomEquipmentFromFile(type, data);
+        this.id = randomEquipment.id;
         this.strength = randomEquipment.strength;
         this.agility = randomEquipment.agility;
         this.expertise = randomEquipment.expertise;

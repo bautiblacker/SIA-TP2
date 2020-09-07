@@ -1,6 +1,4 @@
 package stopCriteria;
-
-import models.Data;
 import models.Player;
 
 import java.util.List;
@@ -20,16 +18,20 @@ public class StructureCriteria implements StopCriteria {
         if(handler.getPrevGeneration() == null || handler.getPrevGeneration().isEmpty()) return false;
         double proportionLimit = matchedProportion(handler.getCurrentGeneration(), handler.getPrevGeneration());
         if(proportionLimit <= this.percentage) {
-           handler.setCriteriaCounter(0);
+           handler.resetCriteraCounter();
         } else {
-            int currentCounter = handler.getCriteriaCounter();
-            handler.setCriteriaCounter(currentCounter + 1);
+            handler.increaseCriteriaCounter();
         }
+        System.out.println("actual porcentage --> " + proportionLimit);
+        System.out.println("comparable porcentage --> " + percentage);
+        System.out.println("counter --> " + handler.getCriteriaCounter());
+
+
         return handler.getCriteriaCounter() >= genLimit;
     }
 
     private double matchedProportion(List<Player> current, List<Player> prev) {
-        double size = current.size();
+        double size = prev.size();
         int counter = 0;
         for(Player p : prev) {
             if(current.contains(p)) {
