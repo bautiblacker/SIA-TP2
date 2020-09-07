@@ -29,11 +29,11 @@ public enum SelectionMethodType {
             case UNIVERSAL:
                 return new Universal();
             case TOURNAMENTPROB:
-                return null;
+                return new TournamentProb();
             case TOURNAMENTDET:
-                return null;
+                return new TournamentDet();
             case BOLTZMANN:
-                return null;
+                return new Boltzmann();
         }
 
         return null;

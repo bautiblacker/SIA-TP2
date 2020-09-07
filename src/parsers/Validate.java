@@ -21,9 +21,14 @@ import static parsers.Parameters.*;
 
 class Validate {
 
-    static void getAndValidateMutation(Data data, String mutation, Double mutationProb) throws InvalidArgumentException {
+    static void getAndValidateMutation(Data data, String mutation, Double mutationProb, int ... params) throws InvalidArgumentException {
         if(MutationMethodType.contains(mutation) && (mutationProb != null && mutationProb > 0 && mutationProb <= 1)) {
             MutationMethodType mutationMethodType = MutationMethodType.valueOf(mutation);
+            if(mutationMethodType.equals(MutationMethodType.LIMITEDMULTIGEN)) {
+                if(params.length != 0 && params[0] > 0) {
+                    data.setMutationMultiGenM(params[0]);
+                } else throw new InvalidArgumentException("Invalid M parameter for mutation method" + mutation);
+            }
             Mutation method = MutationMethodType.getMethodInstance(mutationMethodType);
             data.setMutationMethod(method);
             data.setMutationProb(mutationProb);
