@@ -5,6 +5,7 @@ _Aplicación de diferentes metodos de seleccion, cruza, mutacion y reemplazo par
 Al ejecutable se le necesita pasar como parámetro por linea de comando un archivo json con las configuraciones asi como tomabien un directorio con los diferentes datasets. El archivo debe cumplir con el siguiente formato:
 ```
 {
+  "MAX_LINES": (Integer) Number of lines in datasets files
   "PLAYER_TYPE": ("WARRIOR" | "ARCHER" | "INSIDER" | "DEFENDER"),
   "POPULATION": (Integer) numero positivo que reprensenta el tamaño de la poblacion (N),
   "SELECTION_LIMIT": (Integer) numero positivo que reprenta la cantidad a seleccionar (K),
