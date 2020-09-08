@@ -8,7 +8,9 @@ import org.knowm.xchart.QuickChart;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.XYChart;
 import selection.SelectionMethod;
+import stopCriteria.AcceptableSolutionCriteria;
 import stopCriteria.CriteriaHandler;
+import stopCriteria.CriteriaTypes;
 import stopCriteria.StopCriteria;
 
 import java.util.ArrayList;
@@ -46,8 +48,7 @@ public class Engine {
             parents.addAll(selectionMethodB.select(population, data, (long) (data.getSelectionLimit() * (1-selectionProb))));
             children = new ArrayList<>();
             int i = 0;
-//            Collections.shuffle(parents);
-            double currentTime = System.currentTimeMillis();
+            Collections.shuffle(parents);
             while(i < parents.size() - 1) {
                 Player parentOne = parents.get(i++);
                 Player parentTwo = parents.get(i);

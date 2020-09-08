@@ -1,11 +1,12 @@
 {
-  "PLAYER_TYPE": "ARCHER",
+  "MAX_LINES": 1000,
+  "PLAYER_TYPE": "WARRIOR",
   "POPULATION": 100,
-  "SELECTION_LIMIT": 50,
+  "SELECTION_LIMIT": 55,
 
-  "MUTATION": "UniformMultigen",
-  "MUTATION_PROB": 0.2,
-  "LIMITED_MULTIGEN_M": 50,
+  "MUTATION": "complete",
+  "MUTATION_PROB": 0.7,
+  "LIMITED_MULTIGEN_M": 4,
 
   "CROSSOVER": "singlepoint",
   "CROSSOVER_PROB": 0.5,

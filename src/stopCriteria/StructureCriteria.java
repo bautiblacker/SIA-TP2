@@ -23,7 +23,6 @@ public class StructureCriteria implements StopCriteria {
             handler.increaseCriteriaCounter();
         }
 
-
         return handler.getCriteriaCounter() >= genLimit;
     }
 

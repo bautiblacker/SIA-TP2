@@ -16,7 +16,7 @@ public class EquipmentsFilesParser {
         try {
             final File folder = new File(equipmentsFilesPath);
             for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-                String path = equipmentsFilesPath + fileEntry.getName();
+                String path = equipmentsFilesPath + "/" + fileEntry.getName();
                 EquipmentType equipmentType = EquipmentNameFileParser.equipmentTypeByFileName(fileEntry.getName());
                 Pair<String, Long> fileInfo = new Pair<>(path, data.getMaxLines());
                 equipmentPaths.put(equipmentType, fileInfo);
