@@ -49,8 +49,10 @@ Descargar archivo de ejemplo en: https://github.com/bautiblacker/SIA-TP2/ .
 ## Ejecución
 Correr la siguiente linea en la terminal
 ```
-Java -jar TP1.jar [path config] [path directiorio datasets]
+Java -jar SIA-TP2.jar [path config] [path directiorio datasets]
 ```
+El SIA-TP2.jar se puede descargar de este repositorio.
+
 ## Analizando resultados
 Luego de una exitosa ejecucion, le deberia aparecer algo similar a:
 ```
